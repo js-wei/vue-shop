@@ -1,13 +1,13 @@
 <template>
     <header class="mui-bar mui-bar-nav">
         <div class="mui-row header-row">
-            <div class="mui-col-sm-2 mui-col-xs-2 header-search mui-text-left">
+            <div class="mui-col-sm-2 mui-col-xs-2 header-search mui-text-left" v-if="isBack && !offCanvas">
                 <span class="mui-icon mui-icon-extra mui-icon-extra-sweep barcode hide"></span>
                 <span class="mui-icon mui-icon-back"></span>
             </div>
             <div class="mui-col-sm-8 mui-col-xs-8 header-title mui-text-center">
-                <div class="mui-input-row mui-search hide">
-                    <input type="search" class="mui-input-clear" placeholder="请输入关键词/@用户名">
+                <div class="mui-input-row mui-search hide" v-if="isSearch">
+                    <input type="search" class="mui-input-clear"  v-model="search" @keyup.enter="onEnter(search)" placeholder="请输入关键词/@用户名">
                 </div>
                 <div class="mui-title">这是一个标题</div>
             </div>
@@ -49,12 +49,47 @@
               height:45
             };
         },
-        mounted(){
-            let header = document.querySelector('#header');
-            //header.style.height=this.height?this.height + "px":45 + "px";
+        props: {
+            title: String,            // 标题
+            isBack: {                 // 是否有返回按钮
+                type: Boolean,
+                default: true
+            },
+            isRewriteBackEvent: {     // 是否重写返回事件
+                type: Boolean,
+                default: false
+            },
+            isSearch: {              // 是否带有所有框
+                type: Boolean,
+                default: false
+            },
+            BackEvent: Function,       // 重写返回事件
+            menu: {
+                type: Array
+            },
+            offCanvas: Object,         // 侧滑选项
+            change: Function,          // 搜索框的值发生改变执行该方法
+            onEnter: Function,         // 回车事件
         },
-        methods:{
+        watch: {
+            search(val, oldVal) {
+                this.change(val, oldVal);
+            }
+        },
+        methods: {
+        },
+        mounted() {
+            if(this.isRewriteBackEvent) {
+                document.querySelector(".mui-action-back").addEventListener("tap", () => {
 
+                    this.BackEvent();
+                })
+            }
+
+            // 菜单列表
+            mui(".mui-table-view").on("tap", "a", () => {
+                mui('.mui-popover').popover('toggle');
+            })
         }
     }
 </script>

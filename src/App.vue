@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-head></v-head>
+    <v-head :isBack='isBack'></v-head>
     <v-footer></v-footer>
   </div>
 </template>
@@ -12,6 +12,20 @@
       name: 'app',
       data () {
         return {
+	      isBack: false,
+	      barlist: [{
+		title: '首页',
+		href: 'index.html',
+		icon: 'icon-homebig'
+	      }, {
+		title: '发布',
+		href: 'release.html',
+		icon: 'icon-fabu'
+	      }, {
+		title: '我的',
+		href: 'personal.html',
+		icon: 'icon-yonghu'
+	      }]
         }
       },
       components:{
