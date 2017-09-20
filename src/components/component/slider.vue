@@ -1,33 +1,80 @@
 <template>
-    <div class="mui-slider">
-        <div class="mui-slider-group mui-slider-loop">
+    <div class="mui-slider" id="mySlider" v-if="slider.show">
+        <div class="mui-slider-group" :class="slider.loop?'mui-slider-loop':''">
             <!--支持循环，需要重复图片节点-->
-            <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="4.jpg" /></a></div>
-            <div class="mui-slider-item"><a href="#"><img src="1.jpg" /></a></div>
-            <div class="mui-slider-item"><a href="#"><img src="2.jpg" /></a></div>
-            <div class="mui-slider-item"><a href="#"><img src="3.jpg" /></a></div>
-            <div class="mui-slider-item"><a href="#"><img src="4.jpg" /></a></div>
+            <div class="mui-slider-item mui-slider-item-duplicate">
+                <a :href="slider.images[slider.images.length-1].href?slider.images[slider.images.length-1].href:'javascript:;'">
+                    <img :src="slider.images[slider.images.length-1].src" />
+                    <p class="mui-slider-title" v-if="slider.title">{{slider.images[slider.images.length-1].title}}</p>
+                </a>
+            </div>
+            <div class="mui-slider-item" v-for="(v,i) in slider.images">
+                <a :href="v.href!=''?v.href:'javascript:;'">
+                    <img :src="v.src" />
+                    <p class="mui-slider-title" v-if="slider.title">{{v.title}}</p>
+                </a>
+            </div>
             <!--支持循环，需要重复图片节点-->
-            <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="1.jpg" /></a></div>
+            <div class="mui-slider-item mui-slider-item-duplicate">
+                <a :href="slider.images[0].href?slider.images[0].href:'javascript:;'">
+                    <img :src="slider.images[0].src" />
+                    <p class="mui-slider-title" v-if="slider.title">{{slider.images[0].title}}</p>
+                </a>
+            </div>
+        </div>
+        <div class="mui-slider-indicator" v-if="slider.indicator">
+            <div class="mui-indicator" :class="i==0?'mui-active':''" v-for="(v,i) in slider.images"></div>
         </div>
     </div>
 </template>
-<style>
+<style lang="scss" scoped>
     @import "./static/style/base";
-
+    .mui-slider{
+        .mui-slider-group{
+            .mui-slider-item{
+                a{
+                    img{
+                        height:230px;
+                    }
+                    p.mui-slider-title{
+                        color:nth($baseColor,1);
+                    }
+                }
+            }
+        }
+        .mui-slider-indicator{
+            width:auto;
+            right:10px;
+            bottom:2px;
+        }
+    }
 </style>
 <script>
     export default {
         data(){
             return{
-                images:[]
+
             }
         },
+        props:{
+          slider:Object,
+          default:{
+              show:true,
+              loop:true,
+              title:true,
+              timer:4e3,
+              indicator:true
+          }
+        },
         mounted() {
-            const gallery = document.querySelector('.mui-slider');
-            gallery.slider({
-                interval:5e3
-            });
+            const gallery = document.querySelector('#mySlider'),
+                header = document.querySelector('header');
+            if(header && gallery){
+                gallery.style.marginTop=header.clientHeight + "px";
+                mui('#mySlider').slider({
+                    interval:this.slider.timer
+                });
+            }
         }
     }
 </script>
