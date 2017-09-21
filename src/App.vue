@@ -1,37 +1,31 @@
 <template>
   <div id="app">
-    <v-head :isBack='isBack' :title="title='首页'" :show="true"></v-head>
-    <v-slider  :slider="slider"></v-slider>
-    <v-loading :loading="loading" @click="closed()"></v-loading>
-    <!--<v-login></v-login>-->
-    <!--<v-register></v-register>-->
-    <!--<v-forget></v-forget>-->
-    <v-footer :menu="menu" :show="true"></v-footer>
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <keep-alive>
+      <router-view class="router-view"></router-view>
+    </keep-alive>
+    <v-footer :menu="menu" :current="current"></v-footer>
   </div>
 </template>
 <script>
-    import Vue from 'vue'
-    import VueRouter from 'vue-router'
-    import axios from 'axios'
-    import VueAxios from 'vue-axios'
-
     import vHead from './components/common/header.vue'
-    import vSlider from './components/component/slider.vue'
     import vFooter from './components/common/footer.vue'
-    import vLoading from './components/component/loading.vue'
-    import vLogin from './components/component/login.vue'
-    import vRegister from './components/component/register.vue'
-    import vForget from './components/component/forget.vue'
-    import router from '../router.config'
-    //Vue.use(VueRouter);
-    //Vue.use(VueAxios, axios);
-    Vue.prototype.$axios = axios;
+
+//    import vSlider from './components/component/slider.vue'
+//    import vLoading from './components/component/loading.vue'
+//    import vLogin from './components/component/login.vue'
+//    import vRegister from './components/component/register.vue'
+//    import vForget from './components/component/forget.vue'
+
+
     export default {
       name: 'app',
       data () {
         return {
           title:'活动',
 	      isBack: false,
+          show:true,
+          current:'home.html',
           loading:{
               show:false,
               type:1,
@@ -42,7 +36,7 @@
 	      menu: [
             {
               title: '首页',
-              href: 'index.html',
+              href: 'home.html',
               icon: 'mui-icon-home',
               active:1
             },
@@ -87,21 +81,21 @@
       },
       components:{
           vHead,
-          vSlider,
-          vLoading,
-          vLogin,
-          vForget,
-          vRegister,
           vFooter
+      },
+      methods:{
+
+      },
+      watch : {
+          '$route' (to, from) {
+              let path=to.path.substring(1);
+              this.current = path;
+          }
       },
       mounted(){
 
       }
     }
-    const app = new Vue({
-        //router
-    }).$mount('#app');
-
 </script>
 <style lang="scss">
   #app{
