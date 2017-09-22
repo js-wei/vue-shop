@@ -6,18 +6,21 @@
                 <label>手机号</label>
                 <input type="text" class="mui-input-clear phone" name="phone" placeholder="请输入手机">
             </div>
+            <div class="mui-input-row verify">
+                <label>验证码</label>
+                <input type="text" class="mui-input-clear phone" name="phone" placeholder="请输入验证码">
+                <a class="mui-btn mui-btn-danger">获取验证码</a>
+            </div>
             <div class="mui-input-row">
                 <label>密码</label>
                 <input type="password" class="mui-input-password password" name="password" placeholder="请输入密码">
             </div>
-            <div class="mui-input-row del-line right">
-                <a href="">忘记密码?</a>
-            </div>
+
             <div class="mui-button-row">
-                <button type="button" class="mui-btn mui-btn-block mui-btn-primary" @click="login()" >登陆</button>
+                <button type="button" class="mui-btn mui-btn-block mui-btn-primary" @click="login()" >注册新账号</button>
             </div>
             <div class="mui-input-row del-line">
-                <a href="">注册新号</a>
+                <router-link to="/login">登陆</router-link>
             </div>
             <div class="mui-input-row del-line">
                 <span class="line line-left"></span>
@@ -26,7 +29,6 @@
             </div>
             <div class="third">
                 <img src="/static/images/wechat.png" alt="">
-                <!--<img src="/static/images/qq.jpg" alt="">-->
             </div>
         </form>
     </div>
@@ -76,7 +78,8 @@
 
             }
             .mui-button-row{
-                margin-bottom:2rem;
+                margin-bottom:2.1rem;
+                margin-top:2rem;
             }
             .mui-input-row.del-line{
                 a{
@@ -88,6 +91,18 @@
             }
             .mui-input-row.del-line.right{
                 text-align:right;
+            }
+            .mui-input-row.verify{
+                position:relative;
+                a{
+                    position:absolute;
+                    width:100px;
+                    top:0;
+                    right:0;
+                    &:active{
+                        color:#fff;
+                    }
+                }
             }
             .third{
                 img{
@@ -123,9 +138,9 @@
                 this.$axios.post('/user/get').then(function (response) {
                     console.log(response);
                 })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         },
         mounted() {

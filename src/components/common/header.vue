@@ -23,7 +23,7 @@
     @import "./static/style/base";
     header{
         width:100%;
-        background-color:nth($baseColor,4);
+        background-color:nth($baseColor,3);
         line-height:3rem;
         text-align:center;
         font-size:1.8rem;
@@ -32,9 +32,9 @@
             color:nth($baseColor,1);
         }
         .mui-icon{
-            font-size:2.3rem;
+            font-size:2.5rem;
             position:relative;
-            top: -5px;
+            top: -2px;
         }
         .mui-icon.mui-icon-extra{
             font-size:1.8rem;

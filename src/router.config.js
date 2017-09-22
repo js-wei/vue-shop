@@ -1,31 +1,28 @@
-import Login from './components/component/login.vue'
-import Register from './components/component/register.vue'
 import Index from './components/pager/index.vue'
 import Personal from './components/pager/personal.vue'
+import Release from './components/pager/release.vue'
+import Login from './components/pager/login.vue'
+import Register from './components/pager/register.vue'
 
 export default [
     {
-        path:'/home',
-        component:Index
+  	    path: '/index',
+  	    component: Index
     },
     {
-        path:'/register',
-        component:Register
+        path: '/release',
+        component: Release
     },
     {
-        path:'/login',
-        component:Login
+        path: '/personal',
+        component: Personal
     },
     {
-      path:'/personal',
-      component: Personal
+        path: '/login',
+        component: Login
     },
     {
-        path: '/',
-        redirect: '/home'
-    },
-    {
-        path: '*',
-        redirect: '/home'
+        path: '/register',
+        component: Register
     }
-];
+]
