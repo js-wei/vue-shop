@@ -153,7 +153,7 @@
 	 *打电话 
 	 * @param {Object} number手机号
 	 */
-	owner.call = function(number) { 
+	owner.call = (number) => {
         if(plus.os.name=="Android"){ 
             var Intent = plus.android.importClass("android.content.Intent"); 
             var Uri = plus.android.importClass("android.net.Uri"); 
@@ -176,7 +176,7 @@
 	 * @param {Object} number	号码
 	 * @param {Object} text		内容
 	 */
-    owner.sms=function(number,text){ 
+    owner.sms=(number,text)=>{
         if (plus.os.name == "Android") { 
             var Intent = plus.android.importClass("android.content.Intent"); 
             var Uri = plus.android.importClass("android.net.Uri");
