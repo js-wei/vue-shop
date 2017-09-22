@@ -1,39 +1,56 @@
 <template>
-    <footer class="mui-row" v-if="show">
-        <nav class="mui-bar mui-bar-tab">
-            <a class="mui-tab-item" :class="i==0?'mui-active':''" :href="m.href"  v-for="(m,i) in menu">
+    <footer class="footer" v-if="show">
+        <nav>
+            <router-link :class="(current==m.href)?'active':''"  :to="m.href" v-for="(m,i) in menu"  @click="m.click?m.click:''">
                 <span class="mui-icon" :class="m.icon"></span>
                 <span class="mui-tab-label">{{m.title}}</span>
-            </a>
+            </router-link>
         </nav>
     </footer>
 </template>
 <style lang="scss" scoped>
     @import "./static/style/base";
-    .mui-bar-tab .mui-tab-item.mui-active{
-        color:nth($baseColor,3);
+    .footer{
+        position:fixed;
+        bottom:0px !important;
+        height:55px;
+        nav{
+            width:100vw;
+            border-top:1px solid lighten(nth($baseColor,2),90%);
+            padding-top:.5rem;
+            a{
+                display: block;
+                float: left;
+                text-align: center;
+                width:100vw;
+                color:lighten(nth($baseColor,2),50%);
+                span{
+                    display:block;
+                }
+                &.active{
+                    color:nth($baseColor,3);
+                }
+            }
+        }
     }
 </style>
 <script>
     export default {
-        data(){
-            return{
-
-            }
-        },
-        methods:{
-
-        },
         props:{
-            title:String,
             menu:Array,
+            current:String,
             show:{
                 type:Boolean,
                 default:true
             }
         },
-        created(){
-
+        mounted(){
+            let a = document.querySelectorAll('nav>a'),
+                l = a.length,
+                width = 100/l+'%';
+            for (let i=0;i<l;i++){
+                a[i].style.width = width;
+            }
         }
     }
 </script>
