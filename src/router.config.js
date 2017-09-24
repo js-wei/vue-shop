@@ -3,6 +3,8 @@ import Personal from './components/pager/personal.vue'
 import Release from './components/pager/release.vue'
 import Login from './components/pager/login.vue'
 import Register from './components/pager/register.vue'
+import Setting from './components/pager/setting.vue'
+import Edit from './components/pager/edit.vue'
 
 export default [
     {
@@ -24,5 +26,21 @@ export default [
     {
         path: '/register',
         component: Register
+    },
+    {
+        path:'/setting',
+        component:Setting
+    },
+    {
+        path:'/edit',
+        component:Edit
+    },
+    {
+        path:'/',
+        redirect:'/index'
+    },
+    {
+        path:'*',
+        redirect:'/index'
     }
 ]

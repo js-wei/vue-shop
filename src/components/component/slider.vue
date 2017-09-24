@@ -38,6 +38,9 @@
                     }
                     p.mui-slider-title{
                         color:nth($baseColor,1);
+                        font-size:1.2rem;
+                        height:2.5rem;
+                        line-height:2.5rem;
                     }
                 }
             }
@@ -45,26 +48,14 @@
         .mui-slider-indicator{
             width:auto;
             right:10px;
-            bottom:2px;
+            bottom:.3rem;
         }
     }
 </style>
 <script>
     export default {
-        data(){
-            return{
-
-            }
-        },
         props:{
-          slider:Object,
-          default:{
-              show:true,
-              loop:true,
-              title:true,
-              timer:4e3,
-              indicator:true
-          }
+          slider:Object
         },
         mounted() {
             const gallery = document.querySelector('#mySlider'),

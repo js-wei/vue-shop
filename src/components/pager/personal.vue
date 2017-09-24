@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
     <div class="containers">
         <v-head :title="title"></v-head>
         <div class="personal">
@@ -17,8 +17,97 @@
                         <router-link to="/register">没有账号,现在注册</router-link>
                     </div>
                 </div>
+                <div class="function" v-if="isLogin">
+                    <div class="item">
+                        <div>100</div>
+                        <div>动态</div>
+                    </div>
+                    <div class="item">
+                        <div>10</div>
+                        <div>关注</div>
+                    </div>
+                    <div class="item">
+                        <div>2</div>
+                        <div>粉丝</div>
+                    </div>
+                </div>
+            </div>
+            <div class="collection">
+                <div class="function" v-if="isLogin">
+                    <div class="item">
+                        <router-link to="/index">
+                            <span class="mui-icon mui-icon-paperclip yellow"></span>
+                            <span>预定</span>
+                        </router-link>
+                    </div>
+                    <div class="item">
+                        <router-link to="/index">
+                            <span class="mui-icon mui-icon-plus pink"></span>
+                            <span>发布</span>
+                        </router-link>
+                    </div>
+                    <div class="item">
+                       <router-link to="/index">
+                           <span class="mui-icon mui-icon-personadd red"></span>
+                           <span>参与</span>
+                       </router-link>
+                    </div>
+                </div>
+            </div>
+            <div class="toolbar" v-if="isLogin">
+                <div class="function">
+                    <a href="">
+                        <div class="toolbar-left">
+                            消息通知
+                        </div>
+                        <div class="toolbar-right">
+                            <span class="mui-icon mui-icon-arrowright"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="function margin-top">
+                    <a href="">
+                        <div class="toolbar-left">
+                            我要发布
+                        </div>
+                        <div class="toolbar-right">
+                            <span class="mui-icon mui-icon-arrowright"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="function border-top">
+                    <a href="">
+                        <div class="toolbar-left">
+                            我的发布
+                        </div>
+                        <div class="toolbar-right">
+                            <span class="mui-icon mui-icon-arrowright"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="function margin-top">
+                    <a href="">
+                        <div class="toolbar-left">
+                            用户反馈
+                        </div>
+                        <div class="toolbar-right">
+                            <span class="mui-icon mui-icon-arrowright"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="function margin-top">
+                   <router-link to="/setting">
+                        <div class="toolbar-left">
+                            系统设置
+                        </div>
+                        <div class="toolbar-right">
+                            <span class="mui-icon mui-icon-arrowright"></span>
+                        </div>
+                    </router-link>
+                </div>
             </div>
         </div>
+        <v-footer :menu="menu" :current="current"></v-footer>
     </div>
 </template>
 <style lang="scss">
@@ -27,33 +116,141 @@
         width:100vw;
         height:100vh;
         .personal-title{
-            height:220px;
+            height:200px;
             width:100%;
             background-color:lighten(nth($baseColor,3),12%);
             text-align:center;
             img{
-                margin-top:2.8rem;
+                margin-top:1.3rem;
                 border-radius:50%;
+                width:4rem;
             }
             .information{
                 color:nth($baseColor,1);
-                font-size:1.5rem;
+                font-size:1.8rem;
+                a{
+                    color:nth($baseColor,1);
+                }
+            }
+            .function{
+                width:100vw;
+                div.item{
+                    width:33%;
+                    float: left;
+                    margin-top:.8rem;
+                    color:nth($baseColor,1);
+                    border-right:1px solid nth($baseColor,1);
+                    font-size:1.5rem;
+                }
+                div.item:nth-of-type(3){
+                    border:none;
+                }
+            }
+        }
+        .collection{
+            width:100vw;
+            height:80px;
+            margin-top:.8rem;
+            text-align:center;
+            background-color:nth($baseColor,1);
+            .function{
+                .item{
+                    margin-top:1.2rem;
+                    width:33%;
+                    height:100%;
+                    float: left;
+                    a{
+                        color: nth($baseColor,2);
+                        span{
+                            display:block;
+                            width:100%;
+                            font-size:1.5rem;
+                            &.mui-icon{
+                                font-size:3.2rem;
+                            }
+                            &.yellow{
+                                color:greenyellow;
+                            }
+                            &.pink{
+                                color:deeppink;
+                            }
+                            &.red{
+                                color:darkred;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .toolbar{
+            width:100vw;
+            height:50px;
+            line-height:50px;
+            margin-top:.8rem;
+            text-align:center;
+            .function{
+                width:100vw;
+                height:100%;
+                background-color:nth($baseColor,1);
+                a{
+                    font-size:1.8rem;
+                    color:nth($baseColor,2);
+                    .toolbar-left{
+                        width:70%;
+                        float: left;
+                        text-align:left;
+                        margin-left:1rem;
+                    }
+                    .toolbar-right{
+                        width:20%;
+                        float: right;
+                        text-align:right;
+                        margin-right:1rem;
+                    }
+                }
+                &.margin-top{
+                    margin-top:.8rem;
+                }
+                &.border-top{
+                    border-top:.1rem solid lighten(nth($baseColor,2),89%);
+                }
             }
         }
     }
 </style>
+
 <script>
     import vHead from '../common/header.vue'
+    import vFooter from '../common/footer.vue'
     export default {
         name: 'app',
         data(){
             return{
                 title:'我的',
-                isLogin:false
+                isLogin:true,
+                current:'personal',
+                menu: [
+                    {
+                        title: '首页',
+                        href: 'index',
+                        icon: 'mui-icon-home'
+                    },
+                    {
+                        title: '发布',
+                        href: 'release',
+                        icon: 'mui-icon mui-icon-plus'
+                    },
+                    {
+                        title: '我的',
+                        href: 'personal',
+                        icon: 'mui-icon-contact'
+                    }
+                ]
             }
         },
         components:{
-            vHead
+            vHead,
+            vFooter
         },
         mounted(){
             const gallery = document.querySelector('.personal'),

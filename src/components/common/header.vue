@@ -41,6 +41,10 @@
             margin-top:.3rem;
         }
     }
+    .mui-bar{
+         -webkit-box-shadow:none;
+         box-shadow:none;
+    }
 </style>
 <script>
     export  default {
