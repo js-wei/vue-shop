@@ -1,4 +1,14 @@
-var cityData = [{
+/**
+ * @Author: 魏巍
+ * @Date:   2017-09-19T13:57:48+08:00
+ * @Email:  js_weiwei_100@hotmail.com
+ * @Filename: city.data.js
+ * @Last modified by:   魏巍
+ * @Last modified time: 2017-09-25T14:32:26+08:00
+ */
+
+
+let cityData = [{
 	value: '110000',
 	text: '北京市',
 	children: [{
@@ -1603,3 +1613,4 @@ var cityData = [{
 		text: "海外"
 	}]
 }]
+module.exports = cityData;

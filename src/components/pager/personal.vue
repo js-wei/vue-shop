@@ -127,7 +127,7 @@
             }
             .information{
                 color:nth($baseColor,1);
-                font-size:1.8rem;
+                font-size:1.5rem;
                 a{
                     color:nth($baseColor,1);
                 }
@@ -160,13 +160,13 @@
                     height:100%;
                     float: left;
                     a{
-                        color: nth($baseColor,2);
+                        color:lighten( nth($baseColor,2),50%);
                         span{
                             display:block;
                             width:100%;
                             font-size:1.5rem;
                             &.mui-icon{
-                                font-size:3.2rem;
+                                font-size:3.5rem;
                             }
                             &.yellow{
                                 color:greenyellow;
@@ -193,8 +193,8 @@
                 height:100%;
                 background-color:nth($baseColor,1);
                 a{
-                    font-size:1.8rem;
-                    color:nth($baseColor,2);
+                    font-size:1.5rem;
+                    color:lighten( nth($baseColor,2),50%);
                     .toolbar-left{
                         width:70%;
                         float: left;

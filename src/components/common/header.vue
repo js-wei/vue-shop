@@ -13,6 +13,7 @@
             </div>
             <div class="mui-col-sm-2 mui-col-xs-2 header-chat mui-text-right">
                 <!--<span class="mui-icon mui-icon mui-icon-bars categray"></span>-->
+                <slot name="header-right" class="header-right" v-if="isSlotRight">占位</slot>
                 <span class="mui-icon mui-icon-home" v-if="isHome"></span>
                 <span class="mui-icon mui-icon-extra mui-icon-extra-share" v-if="isShare"></span>
             </div>
@@ -39,6 +40,15 @@
         .mui-icon.mui-icon-extra{
             font-size:1.8rem;
             margin-top:.3rem;
+        }
+        .header-chat{
+            button{
+                margin-top:.2rem;
+                background-color:nth($baseColor,3);
+                border-color: nth($baseColor,3);
+                color:nth($baseColor,1);
+                font-size:1.8rem;
+            }
         }
     }
     .mui-bar{
@@ -82,6 +92,10 @@
             isShare: {              // 是否带有所有框
                 type: Boolean,
                 default: false
+            },
+            isSlotRight:{
+              type:Boolean,
+              default:false
             },
             BackEvent: Function,       // 重写返回事件
             change: Function,          // 搜索框的值发生改变执行该方法

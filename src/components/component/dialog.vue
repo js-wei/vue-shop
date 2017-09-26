@@ -1,9 +1,9 @@
 <template>
-    <div class="popup">
+    <div class="popup" v-show="modal.show">
         <transition name="fade"
                     enter-active-class="fadeDownBig"
                     leave-active-class="fadeUpBig">
-            <div class="modal animated" v-show="modal.show" translate="fadeIn">
+            <div class="modal animated" translate="fadeIn">
                 <div class="modal-body">
                     <div class="modal-header" v-show="modal.isHeader">
                         <h4>{{ modal.title }}</h4>
@@ -40,7 +40,7 @@
                 color: #fff;
                 background:nth($baseColor,3);
                 border-radius: 6px 6px 0 0;
-                padding: 15px;
+                padding:10px;
                 border-bottom: 1px solid nth($baseColor,3);
                 h4{
                     font-size:1.5rem;
@@ -107,7 +107,7 @@
     export default {
         data(){
             return{
-
+                modals:{}
             }
         },
         props: {
@@ -118,11 +118,11 @@
         },
         methods: {
             ok () {
-                document.querySelector('.popup').style.display='none';
-                this.$emit("ok",this);
+                this.modal.show=false;
+                this.$emit("ok",'ok');
             },
             cancel () {
-                document.querySelector('.popup').style.display='none';
+                this.modal.show=false;
                 this.$emit("cancel",'cancel');
             }
         }

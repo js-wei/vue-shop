@@ -6,6 +6,8 @@
     </div>
 </template>
 <script>
+
+
     export default {
         name: 'app',
         data () {
@@ -22,11 +24,15 @@
             }
         },
         components:{
+
         },
         methods:{
+
         },
         mounted(){
-        }
+          
+        },
+
     }
 </script>
 <style lang="scss">

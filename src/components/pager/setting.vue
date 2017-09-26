@@ -92,6 +92,9 @@
                 <button class="mui-btn mui-btn-block logout">退出登录</button>
             </div>
         </div>
+        <v-modal :modal="modal" v-on:ok="yes" v-on:cancel="no">
+            <div slot="modal-content" v-html="modal.content"></div>
+        </v-modal>
     </div>
 </template>
 
@@ -109,8 +112,8 @@
                 height:100%;
                 background-color:nth($baseColor,1);
                 a{
-                    font-size:1.8rem;
-                    color:nth($baseColor,2);
+                    font-size:1.5rem;
+                    color:lighten( nth($baseColor,2),50%);
                     .toolbar-left{
                         width:70%;
                         float: left;
@@ -124,7 +127,7 @@
                         margin-right:1rem;
                         .mui-switch{
                             margin-top:12px;
-                            margin-left:40px;
+                            margin-left:20px;
                         }
                     }
                 }
@@ -137,6 +140,12 @@
                 &.border-top{
                     border-top:.1rem solid lighten(nth($baseColor,2),89%);
                 }
+                .mui-btn-block{
+                    font-size:1.8rem;
+                    color:nth($baseColor,2);
+                    height:auto;
+                    padding-top:18px;
+                }
             }
         }
     }
@@ -144,16 +153,36 @@
 
 <script>
     import vHead from '../common/header.vue'
+    import vModal from '../component/dialog.vue'
+
     export  default {
         data(){
             return{
                 title:'设置',
                 isLogin:true,
-                show:false
+                show:false,
+                modal:{
+                  show:false,
+                  isHeader:true,
+                  isFooter:true,
+                  title:'友情提示',
+                  yes:'确定',
+                  cancel:'取消',
+                  content:''
+                }
             }
         },
         components:{
-            vHead
+            vHead,
+            vModal
+        },
+        methods:{
+          yes(e){
+
+          },
+          no(e){
+
+          }
         },
         mounted(){
             const gallery = document.querySelector('.setting'),
@@ -182,9 +211,12 @@
             });
             document.querySelector('.logout').addEventListener('tap',(e) =>{
                e.preventDefault();
-               mui.confirm('您确定要退出登录','友情提示',['取消','退出'],(e)=>{
-                   console.log(e.index);
-               },'div');
+               this.modal.show=true;
+               this.modal.content="您确定要退出登录?";
+
+              //  mui.confirm('您确定要退出登录','友情提示',['取消','退出'],(e)=>{
+              //      console.log(e.index);
+              //  },'div');
             });
         }
     }
