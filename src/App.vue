@@ -1,15 +1,23 @@
 <template>
     <div id="app">
-        <transition mode="out-in">
-            <router-view class="router-view"></router-view>
-        </transition>
+        <router-view class="router-view"></router-view>
     </div>
 </template>
+<style lang="less">
+    @import "../node_modules/vue2-animate/src/vue2-animate.less";
+    #app{
+        height:auto;
+        overflow:hidden;
+        padding-bottom:2px;
+        .router-view{
+            height:auto;
+            overflow:hidden;
+            padding-bottom:2px;
+        }
+    }
+</style>
 <script>
-
-
     export default {
-        name: 'app',
         data () {
             return {
                 title:'活动',
@@ -35,6 +43,3 @@
 
     }
 </script>
-<style lang="scss">
-
-</style>

@@ -8,7 +8,7 @@
                         头像
                     </div>
                     <div class="toolbar-right">
-                        <img src="/static/images/logo.png" alt="">
+                        <img src="static/images/logo.png" alt="">
                         <span class="mui-icon mui-icon-arrowright"></span>
                     </div>
                 </router-link>

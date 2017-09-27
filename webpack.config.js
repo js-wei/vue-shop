@@ -1,3 +1,13 @@
+/**
+ * @Author: 魏巍
+ * @Date:   2017-09-26T10:03:04+08:00
+ * @Email:  js_weiwei_100@hotmail.com
+ * @Filename: webpack.config.js
+ * @Last modified by:   魏巍
+ * @Last modified time: 2017-09-26T10:55:56+08:00
+ */
+
+
 var path = require('path');
 var webpack = require('webpack');
 
@@ -28,6 +38,14 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader",
+      },
+      {
+        test: /\.less$/,
+        loader: "style-loader!css-loader!less-loader",
       },
       {
         test: /\.(png|jpg|gif|svg)$/,

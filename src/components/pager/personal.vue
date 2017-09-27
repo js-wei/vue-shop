@@ -3,7 +3,7 @@
         <v-head :title="title"></v-head>
         <div class="personal">
             <div class="personal-title">
-                <img src="/static/images/logo.png" alt="header">
+                <img src="static/images/logo.png" alt="header">
                 <div class="information" v-if="isLogin">
                     <div>魏巍</div>
                     <div>ID:1325565</div>
@@ -56,14 +56,14 @@
             </div>
             <div class="toolbar" v-if="isLogin">
                 <div class="function">
-                    <a href="">
+                    <router-link to="/message">
                         <div class="toolbar-left">
                             消息通知
                         </div>
                         <div class="toolbar-right">
                             <span class="mui-icon mui-icon-arrowright"></span>
                         </div>
-                    </a>
+                     </router-link>
                 </div>
                 <div class="function margin-top">
                     <a href="">
@@ -86,14 +86,14 @@
                     </a>
                 </div>
                 <div class="function margin-top">
-                    <a href="">
+                    <router-link to="/feedback">
                         <div class="toolbar-left">
                             用户反馈
                         </div>
                         <div class="toolbar-right">
                             <span class="mui-icon mui-icon-arrowright"></span>
                         </div>
-                    </a>
+                    </router-link>
                 </div>
                 <div class="function margin-top">
                    <router-link to="/setting">
@@ -184,13 +184,15 @@
         }
         .toolbar{
             width:100vw;
-            height:50px;
-            line-height:50px;
             margin-top:.8rem;
             text-align:center;
+            height:auto;
+            overflow-x:hidden;
+            overflow-y:scroll;
             .function{
                 width:100vw;
-                height:100%;
+                height:50px;
+                line-height:50px;
                 background-color:nth($baseColor,1);
                 a{
                     font-size:1.5rem;

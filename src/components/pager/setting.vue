@@ -88,7 +88,7 @@
                     </div>
                 </a>
             </div>
-            <div class="function margin-top10">
+            <div class="function margin-top btn">
                 <button class="mui-btn mui-btn-block logout">退出登录</button>
             </div>
         </div>
@@ -111,6 +111,9 @@
                 width:100vw;
                 height:100%;
                 background-color:nth($baseColor,1);
+                &.btn{
+                    height:50px;
+                }
                 a{
                     font-size:1.5rem;
                     color:lighten( nth($baseColor,2),50%);
@@ -140,11 +143,11 @@
                 &.border-top{
                     border-top:.1rem solid lighten(nth($baseColor,2),89%);
                 }
-                .mui-btn-block{
-                    font-size:1.8rem;
-                    color:nth($baseColor,2);
-                    height:auto;
-                    padding-top:18px;
+                .mui-btn{
+                   &.mui-btn-block{
+                       font-size:1.5rem;
+                       color:lighten(nth($baseColor,2),60%);
+                   }
                 }
             }
         }

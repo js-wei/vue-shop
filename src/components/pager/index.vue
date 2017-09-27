@@ -30,17 +30,17 @@
                         {
                             title: '穿越灵白线--挑战自我极限',
                             href: 'http://baidu.com',
-                            src: '/static/images/01.gif'
+                            src: 'static/images/01.gif'
                         },
                         {
                             title: '大阳山森林水上世界--激情一夏',
                             href: 'http://baidu.com',
-                            src: '/static/images/02.jpg'
+                            src: 'static/images/02.jpg'
                         },
                         {
                             title: '西藏日喀则远行--寻找心灵的归属',
                             href: 'http://baidu.com',
-                            src: '/static/images/03.jpg'
+                            src: 'static/images/03.jpg'
                         }
                     ]
                 },

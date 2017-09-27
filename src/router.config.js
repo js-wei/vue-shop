@@ -17,7 +17,8 @@ import Setting from './components/pager/setting.vue'
 import Edit from './components/pager/edit.vue'
 import Information from './components/pager/information.vue'
 import Avatar  from './components/pager/avatar.vue'
-
+import Message from './components/pager/message.vue'
+import Feedback from './components/pager/feedback.vue'
 
 export default [
     {
@@ -55,6 +56,14 @@ export default [
     {
         path:'/avatar',
         component:Avatar
+    },
+    {
+        path:'/message',
+        component:Message
+    },
+    {
+        path:'/feedback',
+        component:Feedback
     },
     {
         path:'/',

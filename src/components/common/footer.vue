@@ -15,8 +15,9 @@
         bottom:0px !important;
         height:55px;
         background-color:nth($baseColor,1);
+        width:100vw;
         nav{
-            width:100vw;
+            width:100%;
             border-top:1px solid lighten(nth($baseColor,2),90%);
             padding-top:.5rem;
             a{
@@ -48,6 +49,9 @@
         methods:{
         },
         mounted(){
+            let w = document.body.clientWidth,
+                nav = document.querySelector('nav');
+            nav.style.width=w + "px";
             let a = document.querySelectorAll('nav>a'),
                 l = a.length,
                 width = 100/l+'%';
