@@ -2,6 +2,7 @@
     <header class="mui-bar mui-bar-nav" v-if="show">
         <div class="mui-row header-row">
             <div class="mui-col-sm-2 mui-col-xs-2 header-search mui-text-left">
+                <slot name="header-left" class="header-left" v-if="isSlotLeft">占位</slot>
                 <span class="mui-icon mui-icon-extra mui-icon-extra-sweep barcode" v-if="isBarcode"></span>
                 <span class="mui-icon mui-icon-back mui-action-back"  v-if="isBack"></span>
             </div>
@@ -41,14 +42,12 @@
             font-size:1.8rem;
             margin-top:.3rem;
         }
-        .header-chat{
-            button{
-                margin-top:.2rem;
-                background-color:nth($baseColor,3);
-                border-color: nth($baseColor,3);
-                color:nth($baseColor,1);
-                font-size:1.8rem;
-            }
+        button{
+            margin-top:.2rem;
+            background-color:nth($baseColor,3);
+            border-color: nth($baseColor,3);
+            color:nth($baseColor,1);
+            font-size:1.8rem;
         }
     }
     .mui-bar{
@@ -94,6 +93,10 @@
                 default: false
             },
             isSlotRight:{
+              type:Boolean,
+              default:false
+            },
+            isSlotLeft:{
               type:Boolean,
               default:false
             },

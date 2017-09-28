@@ -15,11 +15,15 @@ import routes from './router.config.js'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import filters from './filters'
+import jsonp from 'jsonp'
+
 Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
 
 Vue.use(VueAxios, axios);
 Vue.use(VueRouter);
+
 Vue.prototype.$axios=axios;
+Vue.prototype.$jsonp = jsonp;
 
 let router = new VueRouter({
 	routes

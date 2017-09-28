@@ -1,20 +1,12 @@
 <template>
     <div id="app">
-        <router-view class="router-view"></router-view>
+        <transition mode="out-in">
+            <router-view class="router-view"></router-view>
+        </transition>
     </div>
 </template>
 <style lang="less">
     @import "../node_modules/vue2-animate/src/vue2-animate.less";
-    #app{
-        height:auto;
-        overflow:hidden;
-        padding-bottom:2px;
-        .router-view{
-            height:auto;
-            overflow:hidden;
-            padding-bottom:2px;
-        }
-    }
 </style>
 <script>
     export default {
@@ -38,8 +30,9 @@
 
         },
         mounted(){
-          
-        },
-
+            mui.plusReady(function(){
+                plus.navigator.setStatusBarBackground("#F52F6C");
+            });
+        }
     }
 </script>

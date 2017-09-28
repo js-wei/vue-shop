@@ -13,14 +13,14 @@
                 </router-link>
             </div>
             <div class="function border-top">
-                <a href="">
+               <router-link to="/safe">
                     <div class="toolbar-left">
                         账号和隐私
                     </div>
                     <div class="toolbar-right">
                         <span class="mui-icon mui-icon-arrowright"></span>
                     </div>
-                </a>
+               </router-link>
             </div>
             <div class="function border-top">
                 <a href="">

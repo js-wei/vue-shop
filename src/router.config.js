@@ -19,6 +19,10 @@ import Information from './components/pager/information.vue'
 import Avatar  from './components/pager/avatar.vue'
 import Message from './components/pager/message.vue'
 import Feedback from './components/pager/feedback.vue'
+import Safe from './components/pager/safe.vue'
+import Passwords from './components/pager/setPassword.vue'
+import Phone from './components/pager/phone.vue'
+
 
 export default [
     {
@@ -64,6 +68,18 @@ export default [
     {
         path:'/feedback',
         component:Feedback
+    },
+    {
+        path:'/safe',
+        component:Safe
+    },
+    {
+        path:'/passwords',
+        component:Passwords
+    },
+    {
+        path:'/phone',
+        component:Phone
     },
     {
         path:'/',

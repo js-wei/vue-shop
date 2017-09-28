@@ -105,7 +105,7 @@ export default {
 
     });
     document.querySelector('.croppa-container').style.width=this.width + 'px';
-      document.querySelector('.croppa-container').style.height=this.height + 'px';
+    document.querySelector('.croppa-container').style.height=this.height + 'px';
     mui.plusReady(function() {
       plus.nativeUI.actionSheet({cancel:"取消",buttons:[
           {title:"拍照"},

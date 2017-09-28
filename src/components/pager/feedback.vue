@@ -9,7 +9,7 @@
             <textarea id="content" placeholder="必填,详细反馈" v-model="content"></textarea>
             <input type="text" placeholder="联系方式:QQ或者电话">
             <div class="feedback-photo">
-                <i class="fa fa-3x fa-camera"></i>
+                <i class="fa fa-2x fa-camera"></i>
                 上传图片
             </div>
         </div>
