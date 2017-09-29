@@ -14,7 +14,7 @@
                 </router-link>
             </div>
             <div class="function border-top">
-               <router-link to="/information/12/2">
+                <a href="javascrit:;" @click="editor('nickname')">
                     <div class="toolbar-left">
                         用户名
                     </div>
@@ -22,17 +22,20 @@
                         漫天飘雪浓浓情
                         <span class="mui-icon mui-icon-arrowright"></span>
                     </div>
-                </router-link>
+                </a>
+                <!--<router-link to="/information/12/2"></router-link>-->
             </div>
-            <div class="function border-top">
-                <router-link to="/information/12/1">
+            <div class="function border-top auto">
+                  <a href="javascript:;" @click="editor('information')">
                     <div class="toolbar-left">
-                      介绍
+                       个性签名
                     </div>
                     <div class="toolbar-right">
+                      <p>聪明的人总是会创造机会,而懒惰的人则会抱怨总是没有机会.</p>
                       <span class="mui-icon mui-icon-arrowright"></span>
                     </div>
-                </router-link>
+                  </a>
+                <!--<router-link to="/information/12/1"></router-link>-->
             </div>
             <div class="function margin-top">
                 <a href="javascript:;" class="chocie-sex">
@@ -67,12 +70,18 @@
                     </div>
                 </a>
             </div>
+
         </div>
+        <v-modal :modal="modal" v-on:ok="yes" v-on:cancel="no">
+            <div slot="modal-content" v-html="modal.content"></div>
+        </v-modal>
     </div>
 </template>
 <style lang="scss" scoped>
     @import "static/style/base";
     .edit{
+        height:100vh;
+        position:relative;
         .toolbar{
             width:100vw;
             height:60px;
@@ -114,25 +123,124 @@
                 &.border-top{
                     border-top:.1rem solid lighten(nth($baseColor,2),89%);
                 }
+                &.auto{
+                    height:auto;
+                    overflow:hidden;
+                    padding-bottom:2px;
+                    width:100vw;
+                    .toolbar-left{
+                        width:16%;
+                        height:auto;
+                    }
+                    .toolbar-right{
+                        width:73%;
+                        text-align: left;
+                        line-height:1.2em;
+                        p{
+                            display:block;
+                            width:93%;
+                            margin-top:1rem;
+                            float: left;
+                        }
+                        span{
+                            display:block;
+                            width:6%;
+                            text-align:right;
+                            margin-top:1rem;
+                            height:100%;
+                            float: right;
+                            margin-right:.253rem;
+                            line-height:100%;
+                        }
+                    }
+                }
+            }
+        }
+        div.edit-content-item{
+            width:90%;
+            margin:10px auto;
+            textarea{
+
+            }
+            p{
+                margin-top:-2.5rem;
+                font-size:.8rem;
+                height:2rem;
+                line-height:2rem;
+            }
+            .btn-group{
+                margin-top:-2.5rem;
+                text-align:right;
             }
         }
     }
 </style>
 <script>
     import vHead from '../common/header.vue'
-    import '../../../static/javascript/mui.picker.min.js';
-    import '../../../static/javascript/mui.poppicker.js';
-    import cityData from '../../../static/javascript/city.data.js';
+    import '../../../static/javascript/mui.picker.min.js'
+    import '../../../static/javascript/mui.poppicker.js'
+    import cityData from '../../../static/javascript/city.data.js'
+    import vModal from '../component/dialog.vue'
 
     export default {
         data(){
             return{
                 title:'编辑资料',
-                isLogin:true
+                isLogin:true,
+                count:3,
+                modal:{
+                    show:false,
+                    isHeader:false,
+                    isFooter:false,
+                    title:'',
+                    yes:'确定',
+                    cancel:'取消',
+                    content:'',
+                    position:'bottom',
+                    width:'100%',
+                    height:'200px',
+                    event:'yes|cancel'
+                }
             }
         },
         components:{
             vHead,
+            vModal
+        },
+        methods:{
+            yes(e){
+                alert(1);
+                this.modal.show=true;
+            },
+            no(e){
+                this.modal.show=false;
+            },
+            editor(t){
+                switch (t){
+                    case 'nickname':
+                        this.modal.content= this.createHtml('昵称',3,'nickname');
+                        this.modal.show=true;
+                        break;
+                    case 'information':
+                        this.modal.content= this.createHtml('昵称',3,'nickname');
+                        this.modal.show=true;
+                        break;
+                }
+            },
+            createHtml(t,count,name){
+                let html = `<div class="edit-content">
+                    <div class="edit-content-item mui-row">
+                        <h5>请输入${t}</h5>
+                        <textarea placeholder="${t}" class="${name}"></textarea>
+                        <p class="mui-col-sm-4">您还可以填写${count}个字</p>
+                        <div class="mui-col-sm-8 btn-group">
+                            <button type="button" class="mui-btn mui-btn-mini cancel">取消</button>
+                            <button type="button" class="mui-btn mui-btn-mini yes">确定</button>
+                        </div>
+                    </div>
+                </div>`;
+                return html;
+            }
         },
         mounted(){
             const gallery = document.querySelector('.edit'),
@@ -155,34 +263,34 @@
 
              let sex = new mui.PopPicker();
              sex.setData([
-              {
-    						value: '1',
-    						text: '男'
-    					}, {
-    						value: '2',
-    						text: '女'
-    					}
-					  ]);
+                {
+                    value: '1',
+                    text: '男'
+                }, {
+                    value: '2',
+                    text: '女'
+                }
+              ]);
             document.querySelector('.chocie-sex').addEventListener('tap',(e)=>{
                 sex.show(function(items) {
                   let sex = items[0].text;
                   document.querySelector('#sex').innerText=sex;
                   mui.toast('性别修改成功');
-    						});
+    			});
             });
 
             let cityPicker = new mui.PopPicker({
-  						layer: 2
-  					});
-  					cityPicker.setData(cityData);
-  					let showCityPickerButton = document.getElementById('showCityPicker');
-  					showCityPickerButton.addEventListener('tap', function(event) {
-  						cityPicker.show(function(items) {
-                let area = items[0].text+','+items[1].text;
-                document.querySelector('#area').innerText=area;
-                mui.toast('地区修改成功');
-  						});
-  					}, false);
+  				layer: 2
+  			});
+            cityPicker.setData(cityData);
+            let showCityPickerButton = document.getElementById('showCityPicker');
+                showCityPickerButton.addEventListener('tap', function(event) {
+                cityPicker.show(function(items) {
+                    let area = items[0].text+','+items[1].text;
+                    document.querySelector('#area').innerText=area;
+                    mui.toast('地区修改成功');
+  				});
+  			}, false);
         }
     }
 </script>

@@ -3,7 +3,7 @@
         <transition name="fade"
                     enter-active-class="fadeDownBig"
                     leave-active-class="fadeUpBig">
-            <div class="modal animated" translate="fadeIn">
+            <div class="modal">
                 <div class="modal-body">
                     <div class="modal-header" v-show="modal.isHeader">
                         <h4>{{ modal.title }}</h4>
@@ -28,7 +28,6 @@
     .modal{
         width: 80vw;
         position:fixed;
-        top:30%;
         left:10%;
         z-index:999;
         background-color: #fff;
@@ -125,6 +124,49 @@
                 this.modal.show=false;
                 this.$emit("cancel",'cancel');
             }
+        },
+        mounted(){
+            let doc = document.querySelector('.modal'),
+                middle = '30%',
+                top =   '0',
+                bottom = '0';
+            switch (this.modal.position){
+                case 'top':
+                    doc.style.top=top;
+                    break;
+                case 'middle':
+                    doc.style.top=middle;
+                    break;
+                case 'bottom':
+                    doc.style.bottom=bottom;
+                    break;
+                default:
+                    doc.style.top=middle;
+            }
+
+            if(this.modal.width){
+                doc.style.width=this.modal.width;
+                if(this.modal.width.indexOf('100')>-1){
+                    doc.style.left='0';
+                }
+            }
+            if(this.modal.height){
+                doc.style.height=this.modal.height;
+            }
+
+            if(this.modal.event && this.modal.show){
+                let e = this.modal.event.split('|');
+                console.log(e);
+                document.querySelector('.cancel').addEventListener((e)=>{
+                    alert('cancel');
+                },false);
+                document.querySelector('.yes').addEventListener((e)=>{
+                    alert('yes');
+                },false);
+            }
+        },
+        watch:{
+
         }
     }
 </script>

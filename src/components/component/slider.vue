@@ -38,9 +38,6 @@
                     }
                     p.mui-slider-title{
                         color:nth($baseColor,1);
-                        font-size:1.2rem;
-                        height:2.5rem;
-                        line-height:2.5rem;
                     }
                 }
             }
