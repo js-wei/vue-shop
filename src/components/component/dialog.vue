@@ -153,17 +153,6 @@
             if(this.modal.height){
                 doc.style.height=this.modal.height;
             }
-
-            if(this.modal.event && this.modal.show){
-                let e = this.modal.event.split('|');
-                console.log(e);
-                document.querySelector('.cancel').addEventListener((e)=>{
-                    alert('cancel');
-                },false);
-                document.querySelector('.yes').addEventListener((e)=>{
-                    alert('yes');
-                },false);
-            }
         },
         watch:{
 

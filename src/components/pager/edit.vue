@@ -70,10 +70,21 @@
                     </div>
                 </a>
             </div>
-
         </div>
         <v-modal :modal="modal" v-on:ok="yes" v-on:cancel="no">
-            <div slot="modal-content" v-html="modal.content"></div>
+            <div slot="modal-content">
+                <div class="edit-content-item">
+                    <h5 v-html="tips" style="margin-bottom:10px;"></h5>
+                    <textarea :placeholder="tips" :class="name"></textarea>
+                    <div class="mui-row btn">
+                        <p class="mui-col-sm-6" v-html="count"></p>
+                        <div class="mui-col-sm-6 btn-group">
+                            <button type="button" class="mui-btn mui-btn-mini pull-right" @click="yes">确定</button>
+                            <button type="button" class="mui-btn mui-btn-mini pull-right" @click="no">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </v-modal>
     </div>
 </template>
@@ -156,21 +167,25 @@
                 }
             }
         }
-        div.edit-content-item{
-            width:90%;
-            margin:10px auto;
-            textarea{
-
-            }
-            p{
-                margin-top:-2.5rem;
-                font-size:.8rem;
-                height:2rem;
-                line-height:2rem;
-            }
-            .btn-group{
-                margin-top:-2.5rem;
-                text-align:right;
+        .btn{
+            .edit-content-item{
+                width:90%;
+                margin:10px auto;
+                h5{
+                    margin-bottom:10px;
+                }
+                textarea{
+                    margin-bottom:10px;
+                }
+                p{
+                    margin-top:-2.5rem;
+                    font-size:.8rem;
+                    height:2rem;
+                    line-height:2rem;
+                }
+                .btn-group{
+                    margin-top:-3.5rem;
+                }
             }
         }
     }
@@ -188,6 +203,9 @@
                 title:'编辑资料',
                 isLogin:true,
                 count:3,
+                tips:'',
+                placeholder:'',
+                name:'',
                 modal:{
                     show:false,
                     isHeader:false,
@@ -195,11 +213,9 @@
                     title:'',
                     yes:'确定',
                     cancel:'取消',
-                    content:'',
                     position:'bottom',
                     width:'100%',
-                    height:'200px',
-                    event:'yes|cancel'
+                    height:'200px'
                 }
             }
         },
@@ -209,8 +225,7 @@
         },
         methods:{
             yes(e){
-                alert(1);
-                this.modal.show=true;
+                this.modal.show=false;
             },
             no(e){
                 this.modal.show=false;
@@ -218,28 +233,18 @@
             editor(t){
                 switch (t){
                     case 'nickname':
-                        this.modal.content= this.createHtml('昵称',3,'nickname');
+                        this.tips='请输入昵称';
+                        this.name='nickname';
+                        this.count="您还可以输入3个字符";
                         this.modal.show=true;
                         break;
                     case 'information':
-                        this.modal.content= this.createHtml('昵称',3,'nickname');
+                        this.tips='请输入个性签名';
+                        this.name='information';
+                        this.count="您还可以输入3个字符";
                         this.modal.show=true;
                         break;
                 }
-            },
-            createHtml(t,count,name){
-                let html = `<div class="edit-content">
-                    <div class="edit-content-item mui-row">
-                        <h5>请输入${t}</h5>
-                        <textarea placeholder="${t}" class="${name}"></textarea>
-                        <p class="mui-col-sm-4">您还可以填写${count}个字</p>
-                        <div class="mui-col-sm-8 btn-group">
-                            <button type="button" class="mui-btn mui-btn-mini cancel">取消</button>
-                            <button type="button" class="mui-btn mui-btn-mini yes">确定</button>
-                        </div>
-                    </div>
-                </div>`;
-                return html;
             }
         },
         mounted(){
