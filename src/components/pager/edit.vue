@@ -74,13 +74,13 @@
         <v-modal :modal="modal" v-on:ok="yes" v-on:cancel="no">
             <div slot="modal-content">
                 <div class="edit-content-item">
-                    <h5 v-html="tips" style="margin-bottom:10px;"></h5>
-                    <textarea :placeholder="tips" :class="name"></textarea>
+                    <h5 v-html="'请输入'+tips"></h5>
+                    <textarea :placeholder="'请输入'+tips" :class="name" v-model="content"></textarea>
                     <div class="mui-row btn">
-                        <p class="mui-col-sm-6" v-html="count"></p>
+                        <p class="mui-col-sm-6" v-html="'您还可以输入'+count+'个字符'"></p>
                         <div class="mui-col-sm-6 btn-group">
-                            <button type="button" class="mui-btn mui-btn-mini pull-right" @click="yes">确定</button>
-                            <button type="button" class="mui-btn mui-btn-mini pull-right" @click="no">取消</button>
+                            <button type="button" class="mui-btn mui-btn-mini cancel" @click="no">取消</button>
+                            <button type="button" class="mui-btn mui-btn-mini yes" @click="yes">确定</button>
                         </div>
                     </div>
                 </div>
@@ -139,53 +139,60 @@
                     overflow:hidden;
                     padding-bottom:2px;
                     width:100vw;
+                    position: relative;
                     .toolbar-left{
-                        width:16%;
+                        width:18%;
                         height:auto;
                     }
                     .toolbar-right{
-                        width:73%;
-                        text-align: left;
-                        line-height:1.2em;
+                        width:82%;
                         p{
-                            display:block;
-                            width:93%;
-                            margin-top:1rem;
-                            float: left;
+                            line-height:1.5rem;
+                            width:70%;
+                            position:absolute;
+                            top:10px;
+                            left:20%;
+                            text-align:left;
                         }
                         span{
-                            display:block;
-                            width:6%;
-                            text-align:right;
-                            margin-top:1rem;
-                            height:100%;
-                            float: right;
-                            margin-right:.253rem;
-                            line-height:100%;
+                            position:absolute;
+                            top:15px;
+                            right:12px;
                         }
                     }
                 }
             }
         }
-        .btn{
-            .edit-content-item{
-                width:90%;
-                margin:10px auto;
-                h5{
-                    margin-bottom:10px;
-                }
-                textarea{
-                    margin-bottom:10px;
-                }
-                p{
-                    margin-top:-2.5rem;
-                    font-size:.8rem;
-                    height:2rem;
-                    line-height:2rem;
-                }
-                .btn-group{
-                    margin-top:-3.5rem;
-                }
+    }
+    .edit-content-item{
+        text-align:center;
+        position:relative;
+        h5{
+            margin-bottom:10px;
+        }
+        textarea{
+            margin-bottom:10px;
+            &::placeholder{
+                font-size:1.2rem;
+            }
+        }
+        p{
+            font-size:.8rem;
+            height:2rem;
+            line-height:2rem;
+            text-align:left;
+        }
+        .btn-group{
+            position:absolute;
+            top:73%;
+            right:-20px;
+            .cancel{
+
+            }
+            .yes{
+                background-color:nth($baseColor,3);
+                color:nth($baseColor,1);
+                border-color:nth($baseColor,3);
             }
         }
     }
@@ -202,7 +209,9 @@
             return{
                 title:'编辑资料',
                 isLogin:true,
-                count:3,
+                content:'',
+                count:0,
+                sums:0,
                 tips:'',
                 placeholder:'',
                 name:'',
@@ -224,31 +233,56 @@
             vModal
         },
         methods:{
-            yes(e){
+            yes(){
+                //this.content='';
+                if(this.content==''){
+                    mui.toast('请填写'+this.tips);
+                    return false;
+                }
+                if(this.content.length>this.sums){
+                    mui.toast(this.tips+'超过字数限制');
+                    return false;
+                }
+                mui.alert(this.tips+'修改成功');
+                setTimeout(()=>{
+                    location.reload();
+                },2e3);
                 this.modal.show=false;
             },
-            no(e){
+            no(){
+                this.content='';
                 this.modal.show=false;
             },
             editor(t){
                 switch (t){
                     case 'nickname':
-                        this.tips='请输入昵称';
+                        this.tips='昵称';
                         this.name='nickname';
-                        this.count="您还可以输入3个字符";
+                        this.sums = this.count =8;
                         this.modal.show=true;
                         break;
                     case 'information':
-                        this.tips='请输入个性签名';
+                        this.tips='个性签名';
                         this.name='information';
-                        this.count="您还可以输入3个字符";
+                        this.sums = this.count = 50;
                         this.modal.show=true;
                         break;
                 }
             }
         },
+        watch:{
+            'content':function(o,n){
+                let left = this.sums - parseInt(o.length);
+                if(left>=0){
+                    this.count = left;
+                }else{
+                    this.content=o.substring(0,this.sums);
+                    return '';
+                }
+            }
+        },
         mounted(){
-            const gallery = document.querySelector('.edit'),
+            let gallery = document.querySelector('.edit'),
                 header = document.querySelector('header');
             if(header && gallery){
                 gallery.style.marginTop=header.clientHeight + 10 + "px";

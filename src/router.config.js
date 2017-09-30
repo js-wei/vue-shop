@@ -22,6 +22,7 @@ import Feedback from './components/pager/feedback.vue'
 import Safe from './components/pager/safe.vue'
 import Passwords from './components/pager/setPassword.vue'
 import Phone from './components/pager/phone.vue'
+import MyRelease from './components/pager/my_release.vue'
 
 
 export default [
@@ -80,6 +81,10 @@ export default [
     {
         path:'/phone',
         component:Phone
+    },
+    {
+        path:'/my_release',
+        component:MyRelease
     },
     {
         path:'/',

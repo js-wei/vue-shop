@@ -12,14 +12,15 @@
     @import "./static/style/base";
     .footer{
         position:fixed;
-        bottom:0px !important;
+        bottom:0 !important;
         height:55px;
         background-color:nth($baseColor,1);
         width:100vw;
         nav{
             width:100%;
             border-top:1px solid lighten(nth($baseColor,2),90%);
-            padding-top:.5rem;
+            height:50px;
+            padding-top:5px;
             a{
                 display: block;
                 float: left;
@@ -28,6 +29,7 @@
                 color:lighten(nth($baseColor,2),50%);
                 span{
                     display:block;
+                    height:100%;
                 }
                 &.active{
                     color:nth($baseColor,3);

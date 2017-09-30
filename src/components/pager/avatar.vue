@@ -5,8 +5,8 @@
       <button type="button" class="upload" @click="uploadCroppedImage">上传</button>
     </div>
   </v-head>
-  <div class="croppa">
-    <croppa v-model="myCroppa" placeholder="点击上传头像" :initial-image="initialImage"  :height="height" :width="width">
+  <div class="croppa" @click="changeImage">
+    <croppa v-model="myCroppa" placeholder="点击上传头像" :initial-image="initialImage" :height="height" :width="width">
     </croppa>
   </div>
   <div class="mui-input-group mui-text-center croppa-group">
@@ -24,7 +24,7 @@
     background-color:nth($baseColor,2);
     .croppa{
         text-align:center;
-      padding-top:5rem;
+        padding-top:5rem;
     }
     .croppa-group{
       position:absolute;
@@ -76,23 +76,57 @@ export default {
         this.myCroppa.flipX();
     },
     flipY(){
-      this.myCroppa.flipY();
+        this.myCroppa.flipY();
     },
-    appendByCamera(){ //拍照添加文件
-        plus.camera.getCamera().captureImage(function(e){
-            console.log(e);
-            plus.io.resolveLocalFileSystemURL(e, function(entry) {
-              var path = entry.toLocalURL();
-              console.log(path);
-            }, function(e) {
-                mui.toast("读取拍照文件错误：" + e.message);
-            });
-        });
+    changeImage(){
+        console.log('begin choice image');
+          mui.plusReady(function () {
+              plus.nativeUI.actionSheet({
+                  title: "修改用户头像",
+                  cancel: "取消",
+                  buttons: [{
+                      title: "拍照"
+                  }, {
+                      title: "从手机相册选择"
+                  }]
+              }, function(b) {
+                  switch (b.index) {
+                      case 0:
+                          break;
+                      case 1:
+                          this.getImage(); /*拍照*/
+                          break;
+                      case 2:
+                          this.galleryImg();/*打开相册*/
+                          break;
+                      default:
+                          break;
+                  }
+              });
+          });
     },
-    appendByGallery(){//从相册添加文件
-        plus.gallery.pick(function(path){
-          console.log(path);
-        });
+    getImage() {
+          let c = plus.camera.getCamera();
+          c.captureImage(function(e) {
+              plus.io.resolveLocalFileSystemURL(e, function(entry) {
+                  var s = entry.toLocalURL() + "?version=" + new Date().getTime();
+                  mui.alert(s);
+              }, function(e) {
+                  console.log("读取拍照文件错误：" + e.message);
+              });
+          }, function(s) {
+              console.log("error" + s);
+          }, {
+              filename: "_doc/head.png"
+          });
+     },
+     galleryImg() {
+          plus.gallery.pick(function(path) {
+              path = path+ "?version=" + new Date().getTime();
+              mui.alert(path);
+          }, function(a) {}, {
+              filter: "image"
+          })
     }
   },
   mounted() {
@@ -106,17 +140,6 @@ export default {
     });
     document.querySelector('.croppa-container').style.width=this.width + 'px';
     document.querySelector('.croppa-container').style.height=this.height + 'px';
-    mui.plusReady(function() {
-      plus.nativeUI.actionSheet({cancel:"取消",buttons:[
-          {title:"拍照"},
-          {title:"从相册中选择"}
-      ]}, function(e){//1 是拍照  2 从相册中选择
-          switch(e.index){
-              case 1:this.appendByCamera();break;
-              case 2:this.appendByGallery();break;
-          }
-      });
-    });
   }
 }
 </script>

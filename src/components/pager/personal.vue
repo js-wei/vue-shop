@@ -41,7 +41,7 @@
                         </router-link>
                     </div>
                     <div class="item">
-                        <router-link to="/index">
+                        <router-link to="/release">
                             <span class="mui-icon mui-icon-plus pink"></span>
                             <span>发布</span>
                         </router-link>
@@ -66,24 +66,24 @@
                      </router-link>
                 </div>
                 <div class="function margin-top">
-                    <a href="">
+                    <router-link to="/release">
                         <div class="toolbar-left">
                             我要发布
                         </div>
                         <div class="toolbar-right">
                             <span class="mui-icon mui-icon-arrowright"></span>
                         </div>
-                    </a>
+                    </router-link>
                 </div>
                 <div class="function border-top">
-                    <a href="">
+                    <router-link to="/my_release">
                         <div class="toolbar-left">
                             我的发布
                         </div>
                         <div class="toolbar-right">
                             <span class="mui-icon mui-icon-arrowright"></span>
                         </div>
-                    </a>
+                    </router-link>
                 </div>
                 <div class="function margin-top">
                     <router-link to="/feedback">
@@ -107,6 +107,7 @@
                 </div>
             </div>
         </div>
+        <div class="margin-top15">&nbsp;</div>
         <v-footer :menu="menu" :current="current"></v-footer>
     </div>
 </template>
@@ -115,6 +116,7 @@
     .personal{
         width:100vw;
         height:100vh;
+        padding-bottom:50px;
         .personal-title{
             height:200px;
             width:100%;
