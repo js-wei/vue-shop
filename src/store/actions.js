@@ -23,5 +23,8 @@ export default{
 	},
 	showFooter:({commit})=>{
 		commit(types.FOOTER_SHOW)
+	},
+    NETWORK_ERROR:(commit)=>{
+        commit(types.NETWORK_ERROR);
 	}
 }

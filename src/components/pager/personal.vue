@@ -115,8 +115,8 @@
     @import "./static/style/base";
     .personal{
         width:100vw;
-        height:100vh;
-        padding-bottom:50px;
+        //height:100vh;
+        padding-bottom:30px;
         .personal-title{
             height:200px;
             width:100%;

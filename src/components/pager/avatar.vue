@@ -6,7 +6,12 @@
     </div>
   </v-head>
   <div class="croppa" @click="changeImage">
-    <croppa v-model="myCroppa" placeholder="点击上传头像" :initial-image="initialImage" :height="height" :width="width">
+    <croppa v-model="myCroppa" placeholder="点击上传头像"
+            accept=".jpeg,.png,.jpg"
+            :height="height"
+            :width="width"
+            @move="fileMove">
+      <img slot="initial" :src="initialImageUrl" />
     </croppa>
   </div>
   <div class="mui-input-group mui-text-center croppa-group">
@@ -19,21 +24,22 @@
 <style lang="scss" scoped>
   @import "static/style/base";
   .head{
-    height:93.2vh;
     width:100vw;
+    overflow:hidden;
     background-color:nth($baseColor,2);
     .croppa{
         text-align:center;
         padding-top:5rem;
+        height:100vh;
     }
     .croppa-group{
       position:absolute;
-      top:50%;
+      top:62%;
       width:100vw;
       height:50px;
-      background-color:nth($baseColor,2);
+      background-color:nth($baseColor,2) !important;
       &:before,&:after{
-        background-color:nth($baseColor,2);
+        background-color:nth($baseColor,2) !important;
       }
       .mui-btn{
         margin-top:.5rem;
@@ -55,7 +61,8 @@ export default {
       myCroppa: {},
       width:220,
       height:220,
-      initialImage:''
+      initialImageUrl:'',
+      isChoose:false
     }
   },
   components: {
@@ -79,54 +86,55 @@ export default {
         this.myCroppa.flipY();
     },
     changeImage(){
-        console.log('begin choice image');
-          mui.plusReady(function () {
-              plus.nativeUI.actionSheet({
-                  title: "修改用户头像",
-                  cancel: "取消",
-                  buttons: [{
-                      title: "拍照"
-                  }, {
-                      title: "从手机相册选择"
-                  }]
-              }, function(b) {
-                  switch (b.index) {
-                      case 0:
-                          break;
-                      case 1:
-                          this.getImage(); /*拍照*/
-                          break;
-                      case 2:
-                          this.galleryImg();/*打开相册*/
-                          break;
-                      default:
-                          break;
-                  }
-              });
-          });
+        let self = this;
+        if(!self.isChoose){
+            mui.plusReady(function () {
+                self.isChoose=true;
+                plus.nativeUI.actionSheet({
+                    title: "修改用户头像",
+                    cancel: "取消",
+                    buttons: [{
+                        title: "拍照"
+                    }, {
+                        title: "从手机相册选择"
+                    }]
+                }, function(b) {
+                    switch (b.index) {
+                        case 0:
+                            break;
+                        case 1:
+                            let c = plus.camera.getCamera();
+                            c.captureImage(function(e) {
+                                plus.io.resolveLocalFileSystemURL(e, function(entry) {
+                                    var s = entry.toLocalURL() + "?version=" + new Date().getTime();
+                                    mui.alert(s);
+                                }, function(e) {
+                                    console.log("读取拍照文件错误：" + e.message);
+                                });
+                            }, function(s) {
+                                console.log("error" + s);
+                            }, {
+                                filename: "_doc/head.png"
+                            });
+                            break;
+                        case 2:
+                            plus.gallery.pick(function(path) {
+                                path = path+ "?version=" + new Date().getTime();
+                                self.initialImageUrl = path ;
+                                mui.alert(self.initialImageUrl);
+                            }, function(a) {}, {
+                                filter: "image"
+                            });
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            });
+        }
     },
-    getImage() {
-          let c = plus.camera.getCamera();
-          c.captureImage(function(e) {
-              plus.io.resolveLocalFileSystemURL(e, function(entry) {
-                  var s = entry.toLocalURL() + "?version=" + new Date().getTime();
-                  mui.alert(s);
-              }, function(e) {
-                  console.log("读取拍照文件错误：" + e.message);
-              });
-          }, function(s) {
-              console.log("error" + s);
-          }, {
-              filename: "_doc/head.png"
-          });
-     },
-     galleryImg() {
-          plus.gallery.pick(function(path) {
-              path = path+ "?version=" + new Date().getTime();
-              mui.alert(path);
-          }, function(a) {}, {
-              filter: "image"
-          })
+    fileMove(){
+      this.isChoose = false;
     }
   },
   mounted() {

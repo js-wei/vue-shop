@@ -4,7 +4,8 @@ import {
 	HIDE_LOADING,
 	SHOW_LOADING,
 	FOOTER_HIDE,
-	FOOTER_SHOW
+	FOOTER_SHOW,
+	NETWORK_ERROR
 } from './type'
 
 const state={
@@ -35,6 +36,9 @@ const mutations={
 	},
 	[FOOTER_SHOW](state){
 		state.footerShow=true;
+	},
+	[NETWORK_ERROR](state){
+		state.modalShow=true;
 	}
 };
 

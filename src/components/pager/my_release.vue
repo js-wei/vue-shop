@@ -4,7 +4,10 @@
         <div class="release-list">
             <ul class="mui-table-view mui-table-view-chevron">
                 <li class="mui-table-view-cell mui-media">
-                    <a class="mui-navigate-right">
+                    <!--<a class="mui-navigate-right">-->
+
+                    <!--</a>-->
+                    <router-link to="/details/1" class="mui-navigate-right">
                         <img class="mui-media-object mui-pull-left" src="static/images/logo.png"  @load="createProgressbar(90,1000,1)">
                         <div class="mui-media-body">
                             <h4>灵白线5小时挑战翻越</h4>
@@ -18,10 +21,10 @@
                                 </p>
                             </div>
                         </div>
-                    </a>
+                    </router-link>
                 </li>
                 <li class="mui-table-view-cell mui-media">
-                    <a class="mui-navigate-right">
+                    <router-link to="/details/2" class="mui-navigate-right">
                         <img class="mui-media-object mui-pull-left" src="static/images/logo.png"  @load="createProgressbar(500,500,2)">
                         <div class="mui-media-body">
                             <h4>太湖西山野人基地训练</h4>
@@ -35,23 +38,26 @@
                                 </p>
                             </div>
                         </div>
-                    </a>
+                    </router-link>
                 </li>
             </ul>
         </div>
     </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
     @import "static/style/base";
     .release{
-        height:100vh;
+        height:auto;
+        padding-bottom:10px;
         .release-list{
            padding-bottom:50px;
            .mui-table-view{
                .mui-table-view-cell{
                    .mui-navigate-right{
                        height:auto;
+                       width:auto;
                        overflow:hidden;
+                       padding:2px;
                        .mui-media-object{
                            width:80px !important;
                            height:80px !important;
@@ -59,6 +65,7 @@
                            margin-top:20px;
                        }
                        .mui-media-body{
+                           width:70vw;
                            h4{
                                font-weight:normal;
                            }
@@ -74,6 +81,7 @@
                                    margin-top:10px;
                                    width:70%;
                                    float: left;
+                                   margin-left:5px;
                                    span{
                                        background-color:nth($baseColor,3) !important;
                                    }
@@ -83,6 +91,29 @@
                    }
                }
            }
+        }
+    }
+    @media screen and (max-width:320px){
+        html{
+            font-size:65.8%;
+        }
+        .release{
+            .release-list{
+                .mui-table-view{
+                    .mui-table-view-cell{
+                        .mui-navigate-right{
+                            .mui-media-body{
+                                .progressbar{
+                                    .mui-progressbar{
+                                        width: 58%;
+                                        margin-left:10px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 </style>

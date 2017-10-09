@@ -181,7 +181,7 @@
         },
         methods:{
           yes(e){
-
+              plus.runtime.quit();
           },
           no(e){
 
@@ -216,10 +216,6 @@
                e.preventDefault();
                this.modal.show=true;
                this.modal.content="您确定要退出登录?";
-
-              //  mui.confirm('您确定要退出登录','友情提示',['取消','退出'],(e)=>{
-              //      console.log(e.index);
-              //  },'div');
             });
         }
     }

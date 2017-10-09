@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" @doubletap.stop="dblclick">
         <transition mode="out-in">
             <router-view class="router-view"></router-view>
         </transition>
@@ -27,9 +27,12 @@
 
         },
         methods:{
-
+			dblclick(){
+				alert('dblclick');
+			}
         },
         mounted(){
+            /*
             mui.plusReady(function(){
                 plus.navigator.setStatusBarBackground("#F52F6C");
                 //首页返回键处理
@@ -49,6 +52,7 @@
                     }
                 }, false);
             });
+             */
         }
     }
 </script>
