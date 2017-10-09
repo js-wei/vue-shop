@@ -9,7 +9,7 @@
                         <div class="mui-media-body">
                             不牛不是人
                             <p class="message-title">被赞活动:5小时翻越灵白线</p>
-                            <p class="mui-ellipsis"><i class="fa fa-thumbs-o-up"></i></p>
+                            <p><i class="fa fa-thumbs-o-up"></i></p>
                             <p>04-24</p>
                         </div>
                     </a>
@@ -43,17 +43,23 @@
         .message-list{
             .message-list-view{
                li{
-
+                   width:100vw;
                    a{
                       .mui-media-object{
 
                       }
                        .mui-media-body{
+                           font-size:1.5rem;
                             p{
+                                width:100px;
                                 height:auto;
                                 padding:4px;
                                 &.message-title{
-                                    font-size:1.6rem;
+                                    font-size:1rem;
+                                    overflow: hidden;
+                                    white-space: nowrap;
+                                    text-overflow: ellipsis;
+                                    width:150px;
                                 }
                             }
                        }

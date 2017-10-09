@@ -23,6 +23,7 @@ import Safe from './components/pager/safe.vue'
 import Passwords from './components/pager/setPassword.vue'
 import Phone from './components/pager/phone.vue'
 import MyRelease from './components/pager/my_release.vue'
+import Details from './components/pager/release_details.vue'
 
 
 export default [
@@ -95,6 +96,10 @@ export default [
         path:'/phone',
         component:Phone,
         meta: {allowBack: false}
+    },
+    {
+        path:'/details/:id',
+        component:Details
     },
     {
         path:'/my_release',

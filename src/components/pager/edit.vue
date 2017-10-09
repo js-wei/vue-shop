@@ -91,13 +91,11 @@
 <style lang="scss" scoped>
     @import "static/style/base";
     .edit{
-        height:100vh;
         position:relative;
         .toolbar{
             width:100vw;
             height:60px;
             line-height:60px;
-            margin-top:.8rem;
             text-align:center;
             .function{
                 width:100vw;
@@ -107,13 +105,15 @@
                     font-size:1.5rem;
                     color:lighten( nth($baseColor,2),50%);
                     .toolbar-left{
-                        width:50%;
+                        width:40%;
                         float: left;
                         text-align:left;
                         margin-left:1rem;
+                        font-size:1.5rem;
                     }
                     .toolbar-right{
-                        width:40%;
+                        font-size:1.5rem;
+                        width:50%;
                         float: right;
                         text-align:right;
                         margin-right:1rem;
@@ -141,17 +141,19 @@
                     width:100vw;
                     position: relative;
                     .toolbar-left{
-                        width:18%;
+                        width:20%;
                         height:auto;
                     }
                     .toolbar-right{
-                        width:82%;
+                        width:80%;
+                        font-size:1.5rem;
                         p{
+                            font-size:1.5rem;
                             line-height:1.5rem;
-                            width:70%;
+                            width:67%;
                             position:absolute;
                             top:10px;
-                            left:20%;
+                            left:24%;
                             text-align:left;
                         }
                         span{
@@ -183,9 +185,10 @@
             text-align:left;
         }
         .btn-group{
+            width:120px;
             position:absolute;
-            top:73%;
-            right:-20px;
+            bottom:5%;
+            right:0;
             .cancel{
 
             }
@@ -193,6 +196,26 @@
                 background-color:nth($baseColor,3);
                 color:nth($baseColor,1);
                 border-color:nth($baseColor,3);
+            }
+        }
+    }
+    @media screen and (max-width:320px){
+        .edit{
+            .toolbar{
+                .function{
+
+                    &.auto{
+                        .toolbar-left{
+
+                        }
+                        .toolbar-right{
+                            p{
+                                margin-left:5px;
+                                width:66%;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -34,9 +34,9 @@
             color:nth($baseColor,1);
         }
         .mui-icon{
-            font-size:2.5rem;
+            font-size:4rem;
             position:relative;
-            top: -2px;
+            top: -8px;
         }
         .mui-icon.mui-icon-extra{
             font-size:1.8rem;

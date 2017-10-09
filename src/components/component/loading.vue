@@ -6,7 +6,7 @@
             <span class="mui-icon mui-icon-loop" v-if="loading.type==3"></span>
             <p class="loading-title" :class="loading.isAnimation?'animation':''">{{loading.msg}}</p>
         </div>
-        <div class="loading-mask" v-if="loading.mask"></div>
+        <div class="loading-mask" v-if="loading.mask?loading.mask:true"></div>
     </div>
 </template>
 <style lang="scss" scoped>
@@ -14,15 +14,23 @@
     .loading{
         position:absolute;
         top:40vh;
-        left:40vw;
+        left:35vw;
         text-align:center;
+        z-index:1000;
+        overflow:hidden;
         .loading-container{
+            z-index:1020;
+            overflow:hidden;
             width:100px;
             height:100px;
-            border:1px solid nth($baseColor,5);
+            line-height:90px;
+            border:1px solid nth($baseColor,1);
+            background-color:nth($baseColor,1);
             -webkit-border-radius: 10px;
             -moz-border-radius: 10px;
             border-radius: 10px;
+            position:relative;
+            text-align:center;
             .mui-icon{
                 margin-top:1.5rem;
                 color:nth($baseColor,4);
@@ -33,6 +41,10 @@
                 animation: load8 1.1s infinite linear;
             }
             .loading-title{
+                position:relative;
+                height:15px;
+                line-height:15px;
+                bottom:20px;
                 margin-top:.5rem;
                 font-size:.8rem;
                 color:nth($baseColor,4);
@@ -40,9 +52,9 @@
             .loading-title.animation{
                 position:relative;
                 animation:myfirst 5s infinite linear;
-                -moz-animation:myfirst 5s infinite linear; /* Firefox */
-                -webkit-animation:myfirst 5s infinite linear; /* Safari and Chrome */
-                -o-animation:myfirst 5s infinite linear; /* Opera */
+                -moz-animation:myfirst 5s infinite linear;
+                -webkit-animation:myfirst 5s infinite linear;
+                -o-animation:myfirst 5s infinite linear;
             }
         }
     }
@@ -76,9 +88,9 @@
         }
     }
     @keyframes myfirst {
-        0%   {color:nth($baseColor,4);left:8px; top:0px;}
-        50%  {color:blue;left:-8px; top:0px;}
-        100% {color:nth($baseColor,4);left:8px; top:0px;}
+        0%   {color:nth($baseColor,4);left:8px; bottom:30px;}
+        50%  {color:blue;left:-8px;bottom:30px;}
+        100% {color:nth($baseColor,4);left:8px;bottom:30px;}
     }
 </style>
 <script>
