@@ -1,13 +1,8 @@
 <template>
-<<<<<<< HEAD
-    <div id="app">
-        <router-view class="router-view"></router-view>
-=======
     <div id="app" @doubletap.stop="dblclick">
         <transition mode="out-in">
             <router-view class="router-view"></router-view>
         </transition>
->>>>>>> 3cb6bbd4f952101d4140c4ef50d76435053efe0f
     </div>
 </template>
 <style lang="less">
@@ -58,7 +53,6 @@
                     }
                 }, false);
             });
-<<<<<<< HEAD
             window.onpopstate = () => {
                 if (this.allowBack) {    //    这个allowBack 是存在vuex里面的变量
                     history.go(1);
@@ -71,9 +65,7 @@
                 const fromDepth = from.path.split('/').length;
                 this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
             }
-=======
              */
->>>>>>> 3cb6bbd4f952101d4140c4ef50d76435053efe0f
         }
     }
 </script>

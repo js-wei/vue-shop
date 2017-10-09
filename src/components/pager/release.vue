@@ -21,7 +21,7 @@
                 <div class="mui-input-row numbox">
                     <label>参与人数：</label>
                     <div class="numbox-item">
-                        <div class="mui-numbox" data-numbox-step='10' data-numbox-min='100' data-numbox-max='1000'>
+                        <div class="mui-numbox" id="myNumbox" data-numbox-step='10' data-numbox-min='100' data-numbox-max='1000'>
                             <button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
                             <input class="mui-numbox-input" type="number" value="100"/>
                             <button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
@@ -423,7 +423,7 @@
                                     let c = plus.camera.getCamera();
                                     c.captureImage(function(e) {
                                         plus.io.resolveLocalFileSystemURL(e, function(entry) {
-                                            var s = entry.toLocalURL() + "?version=" + new Date().getTime();
+                                            let s = entry.toLocalURL() + "?version=" + new Date().getTime();
                                             mui.alert(s);
                                         }, function(e) {
                                             console.log("读取拍照文件错误：" + e.message);
@@ -473,6 +473,7 @@
             }
             this.$refs.myQuillEditor.quill.getModule('toolbar').addHandler('image', this.imgClick);
             this.surplusLength = this.surplusSum;
+            mui('#myNumbox').numbox()
         }
     }
 </script>
