@@ -1,8 +1,6 @@
 <template>
     <div id="app">
-        <transition mode="out-in">
-            <router-view class="router-view"></router-view>
-        </transition>
+        <router-view class="router-view"></router-view>
     </div>
 </template>
 <style lang="less">
@@ -14,6 +12,7 @@
             return {
                 title:'活动',
                 isBack: false,
+                allowBack:false,
                 loading:{
                     show:false,
                     type:1,
@@ -49,6 +48,18 @@
                     }
                 }, false);
             });
+            window.onpopstate = () => {
+                if (this.allowBack) {    //    这个allowBack 是存在vuex里面的变量
+                    history.go(1);
+                }
+            };
+        },
+        watch: {
+            '$route' (to, from) {
+                const toDepth = to.path.split('/').length;
+                const fromDepth = from.path.split('/').length;
+                this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+            }
         }
     }
 </script>

@@ -1,16 +1,12 @@
 import {
 	HEAD_SHOW_SUCCESS,
 	HEAD_SHOW_FAIL,
-	HIDE_LOADING,
-	SHOW_LOADING,
-	FOOTER_HIDE,
-	FOOTER_SHOW
+	ALLOW_BACK
 } from './type'
 
 const state={
 	headShow:true,
-	loading:false,
-	footerShow:true
+	allowBack:false
 };
 
 const mutations={
@@ -22,19 +18,8 @@ const mutations={
 		state.headShow=false;
 		//console.log(state.headShow);
 	},
-	/*loading*/
-	[HIDE_LOADING](state){
-		state.loading=false;
-	},
-	[SHOW_LOADING](state){
-		state.loading=true;
-	},
-	/*footer*/
-	[FOOTER_HIDE](state){
-		state.footerShow=false;
-	},
-	[FOOTER_SHOW](state){
-		state.footerShow=true;
+	[ALLOW_BACK](state){
+		state.allowBack = false;
 	}
 };
 
@@ -42,12 +27,9 @@ const getters={
 	headShow(state){
 		return state.headShow;
 	},
-	loading(state){
-		return state.loading;
+	backing(state){
+		return state.allowBack;
 	},
-	footerShow(state){
-		return state.footerShow;
-	}
 };
 
 export default{

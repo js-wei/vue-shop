@@ -7,7 +7,6 @@
  * @Last modified time: 2017-09-25T11:47:44+08:00
  */
 
-
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
@@ -17,7 +16,7 @@ import VueAxios from 'vue-axios'
 import filters from './filters'
 import jsonp from 'jsonp'
 
-Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
+Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));
 
 Vue.use(VueAxios, axios);
 Vue.use(VueRouter);
@@ -28,6 +27,7 @@ Vue.prototype.$jsonp = jsonp;
 let router = new VueRouter({
 	routes
 });
+
 
 new Vue({
   el: '#app',

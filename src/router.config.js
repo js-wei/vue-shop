@@ -28,70 +28,87 @@ import MyRelease from './components/pager/my_release.vue'
 export default [
     {
   	    path: '/index',
-  	    component: Index
+  	    component: Index,
+        meta: {allowBack: false}
     },
     {
         path: '/release',
-        component: Release
+        component: Release,
+        meta: {allowBack: false}
     },
     {
         path: '/personal',
-        component: Personal
+        component: Personal,
+        meta: {allowBack: false}
     },
     {
         path: '/login',
-        component: Login
+        component: Login,
+        meta: {allowBack: false}
     },
     {
         path: '/register',
-        component: Register
+        component: Register,
+        meta: {allowBack: false}
     },
     {
         path:'/setting',
-        component:Setting
+        component:Setting,
+        meta: {allowBack: false}
     },
     {
         path:'/edit',
-        component:Edit
+        component:Edit,
+        meta: {allowBack: false}
     },
     {
         path:'/information/:id/:tp',
-        component:Information
+        component:Information,
+        meta: {allowBack: false}
     },
     {
         path:'/avatar',
-        component:Avatar
+        component:Avatar,
+        meta: {allowBack: false}
     },
     {
         path:'/message',
-        component:Message
+        component:Message,
+        meta: {allowBack: false}
     },
     {
         path:'/feedback',
-        component:Feedback
+        component:Feedback,
+        meta: {allowBack: false}
     },
     {
         path:'/safe',
-        component:Safe
+        component:Safe,
+        meta: {allowBack: false}
     },
     {
         path:'/passwords',
-        component:Passwords
+        component:Passwords,
+        meta: {allowBack: false}
     },
     {
         path:'/phone',
-        component:Phone
+        component:Phone,
+        meta: {allowBack: false}
     },
     {
         path:'/my_release',
-        component:MyRelease
+        component:MyRelease,
+        meta: {allowBack: false}
     },
     {
         path:'/',
-        redirect:'/index'
+        redirect:'/index',
+        meta: {allowBack: false}
     },
     {
         path:'*',
-        redirect:'/index'
+        redirect:'/index',
+        meta: {allowBack: false}
     }
 ]
