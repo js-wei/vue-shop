@@ -35,6 +35,7 @@
                 a{
                     img{
                         height:230px;
+                        width:100%;
                     }
                     p.mui-slider-title{
                         color:nth($baseColor,1);

@@ -7,10 +7,13 @@
         </v-head>
         <div class="feedback-content">
             <textarea id="content" placeholder="必填,详细反馈" v-model="content"></textarea>
-            <input type="text" placeholder="联系方式:QQ或者电话">
+            <input type="text" placeholder="联系方式:QQ或者电话" v-model="phone">
             <div class="feedback-photo" @click="changeImage">
-                <i class="fa fa-2x fa-camera"></i>
-                上传图片
+                <div class="upload" v-show="!loaded">
+                    <i class="fa fa-2x fa-camera"></i>
+                    上传图片
+                </div>
+                <img src="/static/images/logo.png" alt="" id="upload" v-show="loaded">
             </div>
         </div>
     </div>
@@ -42,6 +45,9 @@
             i{
                 display:block;
             }
+            img{
+                width:25vw;
+            }
         }
     }
 </style>
@@ -53,7 +59,10 @@
             return{
                 title:'意见反馈',
                 isSlotRight:true,
-                content:''
+                loaded:false,
+                image:'',
+                content:'',
+                phone:''
             }
         },
         components:{
@@ -61,9 +70,11 @@
         },
         methods:{
             submit(){
-
+                mui.alert(this.content);
+                mui.alert(this.image);
             },
             changeImage(){
+                let self = this;
                 mui.plusReady(function () {
                     plus.nativeUI.actionSheet({
                         title: "修改用户头像",
@@ -78,10 +89,10 @@
                             case 0:
                                 break;
                             case 1:
-                                this.getImage(); /*拍照*/
+                                self.getImage();
                                 break;
                             case 2:
-                                this.galleryImg();/*打开相册*/
+                                self.galleryImg();
                                 break;
                             default:
                                 break;
@@ -90,11 +101,39 @@
                 });
             },
             getImage() {
-                var c = plus.camera.getCamera();
+                let c = plus.camera.getCamera(),
+                    self= this;
                 c.captureImage(function(e) {
                     plus.io.resolveLocalFileSystemURL(e, function(entry) {
-                        var s = entry.toLocalURL() + "?version=" + new Date().getTime();
-                        mui.alert(s);
+                        let path = entry.toLocalURL();
+                        plus.zip.compressImage({
+                            src: path,
+                            dst: "_doc/" + path,
+                            overwrite: true,
+                            quality: 50
+                        }, function(e) {
+                            document.querySelector('#upload').src = self.image =  e.target ;
+                            self.loaded=true;
+                            /*
+                            let server = "http://www.test.cn/aaa.php";
+                            let wt=plus.nativeUI.showWaiting();
+                            let task = plus.uploader.createUpload(server, {
+                                method: "post"
+                            }, function(t, status) {
+                                if(status == 200) {
+                                    alert("上传成功："+t.responseText);
+                                    wt.close(); //关闭等待提示按钮
+                                }else{
+                                    alert("上传失败："+status);
+                                    wt.close();//关闭等待提示按钮
+                                }
+                            });
+                            task.addFile(e.target, {});
+                            task.start();
+                           */
+                        }, function(err) {
+                            mui.alert("压缩失败：" + err.message);
+                        });
                     }, function(e) {
                         console.log("读取拍照文件错误：" + e.message);
                     });
@@ -105,13 +144,41 @@
                 });
             },
             galleryImg() {
+                let self= this;
                 plus.gallery.pick(function(path) {
-                    path = path+ "?version=" + new Date().getTime();
-                    mui.alert(path);
+                    //path = path+ "?version=" + new Date().getTime();
+                    plus.zip.compressImage({
+                        src: path,
+                        dst: "_doc/" + path,
+                        overwrite: true,
+                        quality: 50
+                    }, function(e) {
+                        document.querySelector('#upload').src = self.image =  e.target ;
+                        self.loaded=true;
+                        /*
+                        let server = "http://www.test.cn/aaa.php";
+                        let wt=plus.nativeUI.showWaiting();
+                        let task = plus.uploader.createUpload(server, {
+                            method: "post"
+                        }, function(t, status) {
+                            if(status == 200) {
+                                alert("上传成功："+t.responseText);
+                                wt.close(); //关闭等待提示按钮
+                            }else{
+                                alert("上传失败："+status);
+                                wt.close();//关闭等待提示按钮
+                            }
+                        });
+                        task.addFile(e.target, {});
+                        task.start();
+                       */
+                    }, function(err) {
+                        mui.alert("压缩失败：" + err.message);
+                    });
                 }, function(a) {}, {
                     filter: "image"
-                })
-            }
+                });
+            },
         },
         mounted(){
             const gallery = document.querySelector('.feedback'),

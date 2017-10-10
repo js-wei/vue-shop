@@ -10,7 +10,7 @@
             </div>
             <div class="steps" v-show="second">
                 <input type="text" v-model="code" placeholder='验证码'>
-                <button class="mui-btn send-code" @click="sendCode">重新发送(60S)</button>
+                <button class="mui-btn send-code" @click="sendCode"></button>
                 <button class="mui-btn mui-btn-block" :class="disabled_second?'disabled':''"
                         @click="changePhone">确认修改</button>
                 <p>已向手机192*****592发送验证码</p>
@@ -66,7 +66,11 @@
                 disabled_second:true,
                 ophone:'',
                 nphone:'',
-                code:''
+                code:'',
+                verify:{
+                    countdown:60,
+                    strat_flag:true
+                }
             }
         },
         components:{
@@ -113,8 +117,26 @@
 
             },
             sendCode(){
-                //TODO 发送验证码
-
+                let self = this,
+                    sendCode = document.querySelector('.send-code');
+                if(!sendCode){
+                    return;
+                }
+                if(self.verify.strat_flag){
+                    console.log('send code');
+                }
+                if (self.verify.countdown == 0) {
+                    self.verify.strat_flag = true;
+                    sendCode.innerText='获取验证码';
+                    self.verify.countdown = 60;
+                }else{
+                    self.verify.strat_flag = false;
+                    sendCode.innerText="重新发送(" + self.verify.countdown + "S)";
+                    self.verify.countdown--;
+                    setTimeout(function() {
+                        self.sendCode();
+                    },1e3);
+                }
             },
             changePhone(){
                 if(this.disabled_second){
@@ -137,6 +159,7 @@
             if(header && gallery){
                 gallery.style.marginTop=header.clientHeight + 10 + "px";
             }
+            document.querySelector('.send-code').click();
         }
     }
 </script>

@@ -55,7 +55,7 @@
                                 height:auto;
                                 padding:4px;
                                 &.message-title{
-                                    font-size:1rem;
+                                    font-size:1.5rem;
                                     overflow: hidden;
                                     white-space: nowrap;
                                     text-overflow: ellipsis;

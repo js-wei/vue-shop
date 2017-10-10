@@ -5,41 +5,46 @@
                 <button type="button" @click="cancel">取消</button>
             </div>
             <div slot="header-right">
-                <button type="button" class="upload" @click="submit">提交</button>
+                <button type="button" class="upload" @click="submit">发布</button>
             </div>
         </v-head>
         <div class="release-content">
             <div class="mui-input-group">
                 <div class="mui-input-row">
                     <label>活动名称：</label>
-                    <input type="text" class="mui-input-clear" placeholder="活动名称">
+                    <input type="text" class="mui-input-clear" v-model="article.title" placeholder="活动名称">
                 </div>
                 <div class="mui-input-row">
                     <label>活动地点：</label>
-                    <input type="text" class="mui-input-clear" placeholder="活动地点">
+                    <input type="text" class="mui-input-clear" v-model="article.address" placeholder="活动地点">
+                </div>
+                <div class="mui-input-row">
+                    <label>集合地点：</label>
+                    <input type="text" class="mui-input-clear" v-model="article.venue" placeholder="活动地点">
                 </div>
                 <div class="mui-input-row numbox">
                     <label>参与人数：</label>
                     <div class="numbox-item">
                         <div class="mui-numbox" id="myNumbox" data-numbox-step='10' data-numbox-min='100' data-numbox-max='1000'>
                             <button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
-                            <input class="mui-numbox-input" type="number" value="100"/>
+                            <input class="mui-numbox-input" type="number" v-model="article.sum"/>
                             <button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
                         </div>
                         <div class="tips">*参与人数在100-1000之间</div>
                     </div>
                 </div>
-                <div class="mui-input-row">
+                <div class="mui-input-row time">
                     <label>活动时间：</label>
-                    <input type="text" class="mui-input-clear" placeholder="活动时间">
+                    <input type="text" class="mui-input-clear" v-model="article.date" placeholder="活动时间">
+                    <span class="mui-icon fa fa-calendar" @click="getNowFormatDate"></span>
                 </div>
-                <div class="mui-input-row" v-show="location">
+                <div class="mui-input-row" v-show="article.location">
                     <label>发布地点：</label>
-                    <input type="text" class="mui-input-clear" v-model="location" placeholder="发布地点">
+                    <input type="text" class="mui-input-clear" v-model="article.location" placeholder="发布地点">
                 </div>
                 <div class="mui-input-row" v-show="isAuthor">
                     <label>发布人：</label>
-                    <input type="text" class="mui-input-clear" v-model="author" placeholder="发布人">
+                    <input type="text" class="mui-input-clear" v-model="article.author" placeholder="发布人">
                 </div>
                 <div class="mui-input-row photo" v-show="isPhoto">
                     <label>选择图片：</label>
@@ -104,21 +109,35 @@
                         font-size:1rem;
                     }
                     input{
-                        padding-top:2.5rem;
+                        padding-top:2.2rem;
                         width:70%;
                         font-size:1.2rem;
+                    }
+                    &.time{
+                        height:50px;
+                        width:100%;
+                        position:relative;
+                        .mui-icon{
+                            position:absolute;
+                            right:10px;
+                            top:20px;
+                            font-size:1.5rem;
+                            color:lighten(nth($baseColor,2),40%);
+                        }
                     }
                     &.numbox{
                         height:70px;
                         line-height:70px;
-                        position: relative;
                         label{
                             display:block;
                             float:left;
                         }
                         .numbox-item{
+                            position: relative;
                             width: 70%;
-                            float: right;
+                            height:100%;
+                            float: left;
+                            left:-10px;
                             text-align:left;
                             .mui-numbox{
                                 margin-top:8px;
@@ -126,7 +145,8 @@
                             }
                             .tips{
                                 position:absolute;
-                                bottom:5%;
+                                bottom:0;
+                                left:6px;
                                 font-size:.5rem;
                                 color:nth($baseColor,3);
                                 height:25px;
@@ -174,7 +194,6 @@
                     #editor{
                         border:1px solid lighten(nth($baseColor,2),80%);
                         height:60vh;
-
                     }
                     .limit{
                         text-align:right;
@@ -188,12 +207,15 @@
             }
         }
     }
+    .quill-editor{
+        width:95vw;
+    }
     .ql-container{
         height:220px;
         padding-bottom:7px;
     }
     .ql-toolbar.ql-snow .ql-formats{
-        margin-right:6.5px;
+        margin-right:1px;
         button{
             width:25px;
         }
@@ -241,16 +263,18 @@
                 nowLength:0,
                 surplusSum:2000,
                 surplusLength:0,
-                addRange:'',
-                location:'',
-                photos:'',
-                author:'',
-                value:{
-                    type:String
+                article:{
+                    title:'',
+                    sum:100,
+                    address:'',
+                    photos:'',
+                    author:'',
+                    content:'',
+                    location:'',
+                    venue:'',
+                    date:'',
                 },
-                /*上传图片的地址*/
                 uploadUrl:'http://localhost/test/upload.php',
-                /*上传图片的file控件name*/
                 fileName:'upload_file',
                 editorOption:{
                     debug: 'none',
@@ -294,6 +318,40 @@
             vModal
         },
         methods:{
+            getNowFormatDate() {
+                let date = new Date(),
+                 seperator1 = "-",
+                 seperator2 = ":",
+                 month = date.getMonth() + 1,
+                 strDate = date.getDate(),
+                 hours = date.getHours(),
+                 minutes = date.getMinutes(),
+                 seconds = date.getSeconds();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                if(hours >= 0 && hours <= 9){
+                    hours = "0" + hours;
+                }
+                if (minutes >= 0 && minutes <= 9) {
+                    minutes = "0" + minutes;
+                }
+                if (seconds >= 0 && seconds <= 9) {
+                    seconds = "0" + seconds;
+                }
+
+                let currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                    + " " + hours + seperator2 + minutes
+                    + seperator2 + seconds;
+                //return currentdate;
+                this.article.date = currentdate;
+            },
             yes(e){
 
             },
@@ -301,7 +359,8 @@
 
             },
             submit(){
-
+                this.article.content = this.editor.container.firstChild.innerHTML;
+                mui.alert(JSON.stringify(this.article));
             },
             cancel(){
                 this.$router.go(-1);
@@ -327,6 +386,7 @@
                 let self = this;
                 if(this.isLocation){
                     mui.plusReady(function () {
+                        plus.nativeUI.showWaiting("定位中...");
                         plus.geolocation.getCurrentPosition(function(p){
                             let params={
                                 ak: 'xooZZG25yNjbmCFGytrRyor0',
@@ -340,21 +400,24 @@
                                 data:params,
                                 dataType: 'json',
                                 type: 'post',
-                                timeout:8e3,
+                                timeout:1e4,
                                 success: function(data) {
+                                    plus.nativeUI.closeWaiting();
                                     data = data.result;
-                                    self.location=data.formatted_address;
+                                    self.article.location=data.formatted_address;
                                 },
                                 error: function(xhr, type, errorThrown) {
+                                    plus.nativeUI.closeWaiting();
                                     mui.alert('获取位置信息超时');
                                 }
                             });
                         }, function ( e ) {
+                            plus.nativeUI.closeWaiting();
                             mui.alert(e.message);
                         },{geocode:true});
                     });
                 }else{
-                    self.location="";
+                    self.article.location="";
                 }
             },
             getImage(){
@@ -372,10 +435,7 @@
                 }
                 this.editor.focus();
                 if(fileInput.files[0].size>1024*1024*100){
-                    this.$alert('图片不能大于600KB', '图片尺寸过大', {
-                        confirmButtonText: '确定',
-                        type: 'warning',
-                    });
+
                 }
                 let data=new FormData;
                 data.append(this.fileName,fileInput.files[0]);
@@ -392,7 +452,9 @@
             },
             /*点击上传图片按钮*/
             imgClick(state) {
-                let self=this;
+                let self=this,
+                    range = self.editor.getSelection();
+
                 if(state){
                     if(!this.uploadUrl){
                         console.log('no editor uploadUrl');
@@ -436,18 +498,17 @@
                                     break;
                                 case 2:
                                     plus.gallery.pick(function(path) {
-                                        //path = path+ "?version=" + new Date().getTime();
                                         plus.zip.compressImage({
-                                                src:path,
-                                                dst:"_doc/temp.jpg",
-                                                quality:80
-                                            },
-                                            function(event) {
-                                               console.log(event.target);
-                                            },function(error) {
-                                                console.log("Compress error!");
-                                            });
-                                        //self.editor.insertEmbed(self.editor.getSelection().index, 'image', res.data.url);
+                                            src: path,
+                                            dst: "_doc/" + path,
+                                            overwrite: true,
+                                            quality: 50
+                                        }, function(e) {
+                                            let imagePath = e.target;
+                                            self.editor.insertEmbed(range.index,'image','http://4493bz.1985t.com/uploads/allimg/160414/3-160414162642.jpg');
+                                        }, function(err) {
+                                            mui.alert("压缩失败：" + err.message);
+                                        });
                                     }, function(a) {}, {
                                         filter: "image"
                                     });

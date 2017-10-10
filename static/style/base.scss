@@ -1,5 +1,5 @@
 $baseColor:#FFFFFF #000000 #F52F6C RGBA(245,48,108,1) #8f8f94;
-$px: 1, 5, 10, 15,20,30;
+$px: 1, 5, 10, 15,20,30,35;
 html{
   font-size:62.5%;
 }
@@ -27,3 +27,4 @@ $headings: (red:red,darkred: darkred,green:green,darkgreen:darkgreen, pink: pink
     margin-right:#{$x}px;
   }
 }
+

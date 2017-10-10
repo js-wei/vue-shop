@@ -214,7 +214,9 @@
 					"static/fonts/mui.ttf",
 					"dist/build.js",
 					"static/images/01.gif",
-					"static/images/02.jpg"
+					"static/images/02.jpg",
+					"static/javascript/mui.zoom.js",
+					"static/javascript/mui.previewimage.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -225,7 +227,6 @@
 				"vue-shop.rar",
 				"static/javascript/mui.js",
 				"src/components/pager/login.vue",
-				"static/javascript/mui.previewimage.js",
 				"static/fonts/fontawesome-webfont.svg",
 				"src/components/component/recommend.vue",
 				"static/javascript/mui.picker.js",
@@ -314,7 +315,6 @@
 				"static/javascript/mui.pullToRefresh.material.js",
 				"src/components/common/header.vue",
 				"static/javascript/feedback.js",
-				"static/javascript/mui.zoom.js",
 				"static/javascript/mui.listpicker.js",
 				"static/style/app.css",
 				"src/components/pager/release.vue",

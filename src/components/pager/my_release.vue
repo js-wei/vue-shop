@@ -132,7 +132,6 @@
         methods:{
             createProgressbar(count,totals,id){
                 let progress = count/totals*100;
-                console.log(progress);
                 mui("#progressbar"+id).progressbar({progress:progress}).show();
             }
         },

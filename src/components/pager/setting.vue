@@ -22,16 +22,16 @@
                     </div>
                </router-link>
             </div>
-            <div class="function border-top">
-                <a href="">
-                    <div class="toolbar-left">
-                        黑名单
-                    </div>
-                    <div class="toolbar-right">
-                        <span class="mui-icon mui-icon-arrowright"></span>
-                    </div>
-                </a>
-            </div>
+            <!--<div class="function border-top">-->
+                <!--<a href="">-->
+                    <!--<div class="toolbar-left">-->
+                        <!--黑名单-->
+                    <!--</div>-->
+                    <!--<div class="toolbar-right">-->
+                        <!--<span class="mui-icon mui-icon-arrowright"></span>-->
+                    <!--</div>-->
+                <!--</a>-->
+            <!--</div>-->
             <!--<div class="function margin-top">-->
                 <!--<a href="javascript:;">-->
                     <!--<div class="toolbar-left">-->

@@ -1,19 +1,21 @@
 {
-  "index.html": {
-    "resources": [
-      "static/style/mui.min.css",
-      "static/style/vue-croppa.css",
-      "static/style/icons-extra.css",
-      "/dist/build.js",
-      "static/javascript/mui.min.js",
-      "static/style/vue2-animate.min.css",
-      "static/style/mui.picker.min.css",
-      "static/style/font-awesome.min.css",
-      "static/images/03.jpg",
-      "static/fonts/mui.ttf",
-      "dist/build.js",
-      "static/images/01.gif",
-      "static/images/02.jpg"
-    ]
-  }
+	"index.html": {
+		"resources": [
+			"static/style/mui.min.css",
+			"static/style/vue-croppa.css",
+			"static/style/icons-extra.css",
+			"/dist/build.js",
+			"static/javascript/mui.min.js",
+			"static/style/vue2-animate.min.css",
+			"static/style/mui.picker.min.css",
+			"static/style/font-awesome.min.css",
+			"static/images/03.jpg",
+			"static/fonts/mui.ttf",
+			"dist/build.js",
+			"static/images/01.gif",
+			"static/images/02.jpg",
+			"static/javascript/mui.zoom.js",
+			"static/javascript/mui.previewimage.js"
+		]
+	}
 }
