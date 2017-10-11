@@ -31,6 +31,10 @@
         text-align:center;
         padding-top:5rem;
         height:100vh;
+        .croppa-container{
+          margin:0 auto;
+          border:1px solid green;
+        }
     }
     .croppa-group{
       position:absolute;
@@ -59,8 +63,8 @@ export default {
       isSlotRight: true,
       title: '头像上传',
       myCroppa: {},
-      width:220,
-      height:220,
+      width:180,
+      height:180,
       initialImageUrl:'',
       isChoose:false
     }
@@ -71,10 +75,16 @@ export default {
   methods: {
     uploadCroppedImage() {
       this.myCroppa.generateBlob((blob) => {
-          //console.log(blob);
-        // write code to upload the cropped image file (a file is a blob)
-      }, 'image/jpeg', 0.8);// 80% compressed jpeg file
-      console.log(this.myCroppa.generateDataUrl());
+        console.log(blob);
+        var fd = new FormData()
+        fd.append('file', blob)
+        fd.append('id', '1')
+        this.$axios.post('http://host.com/user/upload_header',fd)
+        .then((res)=>{
+          console.log(res);
+        })
+        .catch(error=>console.log(error));
+      }, 'image/jpeg', 0.8);
     },
     rotate(){
         this.myCroppa.rotate();
@@ -87,51 +97,49 @@ export default {
     },
     changeImage(){
         let self = this;
-        if(!self.isChoose){
-            mui.plusReady(function () {
-                self.isChoose=true;
-                plus.nativeUI.actionSheet({
-                    title: "修改用户头像",
-                    cancel: "取消",
-                    buttons: [{
-                        title: "拍照"
-                    }, {
-                        title: "从手机相册选择"
-                    }]
-                }, function(b) {
-                    switch (b.index) {
-                        case 0:
-                            break;
-                        case 1:
-                            let c = plus.camera.getCamera();
-                            c.captureImage(function(e) {
-                                plus.io.resolveLocalFileSystemURL(e, function(entry) {
-                                    var s = entry.toLocalURL() + "?version=" + new Date().getTime();
-                                    mui.alert(s);
-                                }, function(e) {
-                                    console.log("读取拍照文件错误：" + e.message);
-                                });
-                            }, function(s) {
-                                console.log("error" + s);
-                            }, {
-                                filename: "_doc/head.png"
+
+        mui.plusReady(function () {
+            self.isChoose=true;
+            plus.nativeUI.actionSheet({
+                title: "修改用户头像",
+                cancel: "取消",
+                buttons: [{
+                    title: "拍照"
+                }, {
+                    title: "从手机相册选择"
+                }]
+            }, function(b) {
+                switch (b.index) {
+                    case 0:
+                        break;
+                    case 1:
+                        let c = plus.camera.getCamera();
+                        c.captureImage(function(e) {
+                            plus.io.resolveLocalFileSystemURL(e, function(entry) {
+                                var s = entry.toLocalURL() + "?version=" + new Date().getTime();
+                                self.initialImageUrl = s;
+                            }, function(e) {
+                                console.log("读取拍照文件错误：" + e.message);
                             });
-                            break;
-                        case 2:
-                            plus.gallery.pick(function(path) {
-                                path = path+ "?version=" + new Date().getTime();
-                                self.initialImageUrl = path ;
-                                mui.alert(self.initialImageUrl);
-                            }, function(a) {}, {
-                                filter: "image"
-                            });
-                            break;
-                        default:
-                            break;
-                    }
-                });
+                        }, function(s) {
+                            console.log("error" + s);
+                        }, {
+                            filename: "_doc/head.png"
+                        });
+                        break;
+                    case 2:
+                        plus.gallery.pick(function(path) {
+                            path = path+ "?version=" + new Date().getTime();
+                            self.initialImageUrl = path + "?version=" + new Date().getTime();
+                        }, function(a) {}, {
+                            filter: "image"
+                        });
+                        break;
+                    default:
+                        break;
+                }
             });
-        }
+        });
     },
     fileMove(){
       this.isChoose = false;

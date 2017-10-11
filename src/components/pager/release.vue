@@ -14,13 +14,15 @@
                     <label>活动名称：</label>
                     <input type="text" class="mui-input-clear" v-model="article.title" placeholder="活动名称">
                 </div>
-                <div class="mui-input-row">
+                <div class="mui-input-row icon">
                     <label>活动地点：</label>
                     <input type="text" class="mui-input-clear" v-model="article.address" placeholder="活动地点">
+                    <span class="mui-icon mui-icon-location" @click="getLocation('address')"></span>
                 </div>
-                <div class="mui-input-row">
+                <div class="mui-input-row icon">
                     <label>集合地点：</label>
                     <input type="text" class="mui-input-clear" v-model="article.venue" placeholder="活动地点">
+                    <span class="mui-icon mui-icon-location" @click="getLocation('venue')"></span>
                 </div>
                 <div class="mui-input-row numbox">
                     <label>参与人数：</label>
@@ -33,7 +35,7 @@
                         <div class="tips">*参与人数在100-1000之间</div>
                     </div>
                 </div>
-                <div class="mui-input-row time">
+                <div class="mui-input-row icon">
                     <label>活动时间：</label>
                     <input type="text" class="mui-input-clear" v-model="article.date" placeholder="活动时间">
                     <span class="mui-icon fa fa-calendar" @click="getNowFormatDate"></span>
@@ -68,7 +70,7 @@
                     </quill-editor>
                     <div class="limit">当前<span>{{nowLength}}</span>个字符，还可以输入<span>{{surplusLength}}</span>个字符。</div>
                     <div class="add-btn-group">
-                        <span class="mui-badge" :class="isLocation?'mui-badge-primary':''" @click="getLocation">
+                        <span class="mui-badge" :class="(isLocation && type)?'mui-badge-primary':''" @click="getLocation">
                             <i class="fa fa-map-marker"></i>&nbsp;所在位置</span>
                         <!--<span class="mui-badge" :class="isPhoto?'mui-badge-primary':''" @click="getImage">-->
                             <!--<i class="fa fa-picture-o"></i>&nbsp;添加图片-->
@@ -105,15 +107,18 @@
                     line-height:50px;
                     label{
                         padding-top:2rem;
-                        width:30%;
-                        font-size:1rem;
+                        width:34%;
+                        font-size:1.5rem;
                     }
                     input{
-                        padding-top:2.2rem;
-                        width:70%;
-                        font-size:1.2rem;
+                        padding-top:2.5rem;
+                        width:66%;
+                        font-size:1.5rem;
+                        &::placeholder{
+                          font-size:1.5rem;
+                        }
                     }
-                    &.time{
+                    &.icon{
                         height:50px;
                         width:100%;
                         position:relative;
@@ -134,7 +139,7 @@
                         }
                         .numbox-item{
                             position: relative;
-                            width: 70%;
+                            width: 66%;
                             height:100%;
                             float: left;
                             left:-10px;
@@ -189,8 +194,9 @@
                     }
                 }
                 .content{
-                    width:92vw;
+                    width:95vw;
                     margin:10px auto;
+                    margin-left: 14px;
                     #editor{
                         border:1px solid lighten(nth($baseColor,2),80%);
                         height:60vh;
@@ -263,6 +269,7 @@
                 nowLength:0,
                 surplusSum:2000,
                 surplusLength:0,
+                type:0,
                 article:{
                     title:'',
                     sum:100,
@@ -381,7 +388,7 @@
                     //editor.enable(false);
                 }
             },
-            getLocation(){
+            getLocation(type=''){
                 this.isLocation=!this.isLocation;
                 let self = this;
                 if(this.isLocation){
@@ -404,20 +411,41 @@
                                 success: function(data) {
                                     plus.nativeUI.closeWaiting();
                                     data = data.result;
-                                    self.article.location=data.formatted_address;
+                                    switch (type) {
+                                      case 'address':
+                                        self.article.address=data.formatted_address;
+                                        self.type=0;
+                                        break;
+                                      case 'venue':
+                                        self.article.venue=data.formatted_address;
+                                        self.type=0;
+                                        break;
+                                      default:
+                                      	self.type=1;
+                                        self.article.location=data.formatted_address;
+                                    }
                                 },
-                                error: function(xhr, type, errorThrown) {
+                                error: function(xhr, type, error) {
                                     plus.nativeUI.closeWaiting();
                                     mui.alert('获取位置信息超时');
                                 }
                             });
                         }, function ( e ) {
                             plus.nativeUI.closeWaiting();
-                            mui.alert(e.message);
+                            mui.alert('请打开定位服务');
                         },{geocode:true});
                     });
                 }else{
-                    self.article.location="";
+                  switch (type) {
+                    case 'address':
+                      self.article.address='';
+                      break;
+                    case 'venue':
+                      self.article.venue='';
+                      break;
+                    default:
+                      self.article.location='';
+                  }
                 }
             },
             getImage(){

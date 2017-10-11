@@ -42,19 +42,8 @@
                     <!--</div>-->
                 <!--</a>-->
             <!--</div>-->
+          
             <div class="function margin-top">
-                <a href="javascript:;">
-                    <div class="toolbar-left">
-                        列表显示摘要
-                    </div>
-                    <div class="toolbar-right">
-                       <div class="mui-switch mui-switch-mini" id="zhaiSwitch">
-                          <div class="mui-switch-handle"></div>
-                       </div>
-                    </div>
-                </a>
-            </div>
-            <div class="function border-top">
                 <a href="javascript:;">
                     <div class="toolbar-left">
                         非WIFI提醒
@@ -194,12 +183,7 @@
                 gallery.style.marginTop=header.clientHeight + 10 + "px";
             }
             mui('.mui-switch')['switch']();
-            //摘要显示
-            document.getElementById("zhaiSwitch").addEventListener('toggle',(e)=>{
-                e.preventDefault();
-                let isActive = e.detail.isActive;
-
-            });
+            
             //WIFI提醒
             document.getElementById("wifiSwitch").addEventListener('toggle',(e)=>{
                 e.preventDefault();
