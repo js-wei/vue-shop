@@ -16,6 +16,7 @@
         height:55px;
         background-color:nth($baseColor,1);
         width:100vw;
+        z-index:100;
         nav{
             width:100%;
             border-top:1px solid lighten(nth($baseColor,2),90%);

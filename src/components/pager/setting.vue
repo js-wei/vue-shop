@@ -113,7 +113,7 @@
                         margin-left:1rem;
                     }
                     .toolbar-right{
-                        width:20%;
+                        width:18%;
                         float: right;
                         text-align:right;
                         margin-right:1rem;

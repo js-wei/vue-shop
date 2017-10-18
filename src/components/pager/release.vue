@@ -59,7 +59,6 @@
                     </div>
                 </div>
                 <div class="content">
-                    <!-- bidirectional data binding（双向数据绑定） -->
                     <quill-editor ref="myQuillEditor"
                       :options="editorOption"
                       @blur="onEditorBlur($event)"
@@ -70,7 +69,7 @@
                     </quill-editor>
                     <div class="limit">当前<span>{{nowLength}}</span>个字符，还可以输入<span>{{surplusLength}}</span>个字符。</div>
                     <div class="add-btn-group">
-                        <span class="mui-badge" :class="(isLocation && type)?'mui-badge-primary':''" @click="getLocation">
+                        <span class="mui-badge" :class="(isLocation && type==0)?'mui-badge-primary':''" @click="getLocation">
                             <i class="fa fa-map-marker"></i>&nbsp;所在位置</span>
                         <!--<span class="mui-badge" :class="isPhoto?'mui-badge-primary':''" @click="getImage">-->
                             <!--<i class="fa fa-picture-o"></i>&nbsp;添加图片-->
@@ -418,10 +417,10 @@
                                         break;
                                       case 'venue':
                                         self.article.venue=data.formatted_address;
-                                        self.type=0;
+                                        self.type=1;
                                         break;
                                       default:
-                                      	self.type=1;
+                                      	self.type=2;
                                         self.article.location=data.formatted_address;
                                     }
                                 },
