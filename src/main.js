@@ -11,20 +11,20 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import routes from './router.config.js'
+import filters from './filters'
+import stores from './store/store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import filters from './filters'
-import jsonp from 'jsonp'
 
-Object.keys(filters).forEach(key => Vue.filter(key, filters[key]));
-
-Vue.use(VueAxios, axios);
+Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
+Vue.use(VueAxios, axios)
 Vue.use(VueRouter);
+axios.defaults.baseURL = '/api';
 
-Vue.prototype.$axios=axios;
-Vue.prototype.$jsonp = jsonp;
 
 let router = new VueRouter({
+  mode:'history',
+  scrollBehavior: () => ({ y: 0 }),
 	routes
 });
 

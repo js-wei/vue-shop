@@ -8,7 +8,7 @@
                     <p class="mui-slider-title" v-if="slider.title">{{slider.images[slider.images.length-1].title}}</p>
                 </a>
             </div>
-            <div class="mui-slider-item" v-for="(v,i) in slider.images">
+            <div class="mui-slider-item" v-for="(v,i) in slider.images" :key="i">
                 <a :href="v.href!=''?v.href:'javascript:;'">
                     <img :src="v.src" />
                     <p class="mui-slider-title" v-if="slider.title">{{v.title}}</p>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="mui-slider-indicator" v-if="slider.indicator">
-            <div class="mui-indicator" :class="i==0?'mui-active':''" v-for="(v,i) in slider.images"></div>
+            <div class="mui-indicator" :class="i==0?'mui-active':''" v-for="(v,i) in slider.images" :key="i"></div>
         </div>
     </div>
 </template>

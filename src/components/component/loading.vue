@@ -9,12 +9,37 @@
         <div class="loading-mask" v-if="loading.mask?loading.mask:true"></div>
     </div>
 </template>
+<script>
+export default{
+  data() {
+    return {
+      masker:null
+    }
+  },
+  props: {
+    loading:{
+        type:Object,
+        default:{
+            show:false,
+            type:1,
+            msg:'努力加载中...',
+            mask:true,
+            isAnimation:true,
+        }
+    }
+  },
+  methods:{
+
+  }
+}
+</script>
+
 <style lang="scss" scoped>
     @import "./static/style/base";
     .loading{
         position:absolute;
         top:40vh;
-        left:35vw;
+        left:38vw;
         text-align:center;
         z-index:1000;
         overflow:hidden;
@@ -93,21 +118,3 @@
         100% {color:nth($baseColor,4);left:8px;bottom:30px;}
     }
 </style>
-<script>
-export default{
-  data() {
-    return {
-      masker:null
-    }
-  },
-  props: {
-    loading:Object
-  },
-  methods:{
-//      closed(callback){
-//          callback.call(this,this.loading.show);
-//          return this;
-//      }
-  }
-}
-</script>

@@ -111,6 +111,48 @@
         <v-footer :menu="menu" :current="current"></v-footer>
     </div>
 </template>
+<script>
+    import vHead from '../common/header.vue'
+    import vFooter from '../common/footer.vue'
+    export default {
+        name: 'app',
+        data(){
+            return{
+                title:'我的',
+                isLogin:false,
+                current:'personal',
+                menu: [
+                    {
+                        title: '首页',
+                        href: 'index',
+                        icon: 'mui-icon-home'
+                    },
+                    {
+                        title: '发布',
+                        href: 'release',
+                        icon: 'mui-icon mui-icon-plus'
+                    },
+                    {
+                        title: '我的',
+                        href: 'personal',
+                        icon: 'mui-icon-contact'
+                    }
+                ]
+            }
+        },
+        components:{
+            vHead,
+            vFooter
+        },
+        mounted(){
+            const gallery = document.querySelector('.personal'),
+                header = document.querySelector('header');
+            if(header && gallery){
+                gallery.style.marginTop=header.clientHeight - 2 + "px";
+            }
+        }
+    }
+</script>
 <style lang="scss">
     @import "./static/style/base";
     .personal{
@@ -222,46 +264,3 @@
         }
     }
 </style>
-
-<script>
-    import vHead from '../common/header.vue'
-    import vFooter from '../common/footer.vue'
-    export default {
-        name: 'app',
-        data(){
-            return{
-                title:'我的',
-                isLogin:true,
-                current:'personal',
-                menu: [
-                    {
-                        title: '首页',
-                        href: 'index',
-                        icon: 'mui-icon-home'
-                    },
-                    {
-                        title: '发布',
-                        href: 'release',
-                        icon: 'mui-icon mui-icon-plus'
-                    },
-                    {
-                        title: '我的',
-                        href: 'personal',
-                        icon: 'mui-icon-contact'
-                    }
-                ]
-            }
-        },
-        components:{
-            vHead,
-            vFooter
-        },
-        mounted(){
-            const gallery = document.querySelector('.personal'),
-                header = document.querySelector('header');
-            if(header && gallery){
-                gallery.style.marginTop=header.clientHeight - 2 + "px";
-            }
-        }
-    }
-</script>

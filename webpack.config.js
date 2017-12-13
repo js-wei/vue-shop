@@ -10,6 +10,7 @@
 
 var path = require('path');
 var webpack = require('webpack');
+var webServer = require('./config/webServer')
 
 module.exports = {
   entry: './src/main.js',
@@ -61,10 +62,7 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js'
     }
   },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true
-  },
+  devServer:webServer,
   performance: {
     hints: false
   },

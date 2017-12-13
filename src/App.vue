@@ -5,7 +5,82 @@
         </transition>
     </div>
 </template>
+
+<script>
+    export default {
+        data () {
+            return {
+                title:'活动',
+                isBack: false,
+                allowBack:false
+            }
+        },
+        components:{
+
+        },
+        methods:{
+			dblclick(){
+				return false;
+			},
+          onNetChange(){
+            var nt = plus.networkinfo.getCurrentType();
+	       switch(nt){
+	        　　　　case plus.networkinfo.CONNECTION_ETHERNET:
+	        　　　　case plus.networkinfo.CONNECTION_WIFI:
+	        　　　　　 mui.toast("当前网络为WiFi");
+	       　　　　　　break;
+	       　　　　 case plus.networkinfo.CONNECTION_CELL2G:
+	       　　　　 case plus.networkinfo.CONNECTION_CELL3G:
+	       　　　　 case plus.networkinfo.CONNECTION_CELL4G:
+	       　　　　　　mui.toast("当前网络非WiFi");
+	       　　　　　　break;
+	       　　　　 default:
+	       　　　　　　mui.toast("当前没有网络");
+	       　　　　　　break;
+	       　　	}
+          }
+        },
+        mounted(){
+            let self = this;
+            mui.plusReady(function(){
+                plus.navigator.setStatusBarBackground("#F52F6C");
+                let first = null;
+                plus.key.addEventListener('backbutton', function() {
+                   if (!first) {
+                       first = new Date().getTime();
+                       setTimeout(function() {
+                           first = null;
+                       }, 1000);
+                   } else {
+                       if (new Date().getTime() - first < 1000) {
+                           plus.runtime.quit();
+                       }
+                   }
+                }, false);
+                document.addEventListener("netchange",self.onNetChange,false);
+                if(plus.networkinfo.getCurrentType()==1){
+                  mui.toast( "没有网路链接");
+                  return;
+                }
+                if(plus.networkinfo.getCurrentType()!=2 || plus.networkinfo.getCurrentType()!=3){
+                  mui.toast( "当前网络为移动网络");
+                }
+            });
+        },
+        watch: {
+            '$route' (to, from) {
+            	
+            }
+        }
+    }
+</script>
 <style lang="less">
+    html{
+        font-size:66.5%;
+    }
+    body{
+     background-color: #ffffff; 
+    }
     @import "../node_modules/vue2-animate/src/vue2-animate.less";
     .mui-preview-image.mui-fullscreen {
         position: fixed;
@@ -155,78 +230,3 @@
         }
     }
 </style>
-<script>
-    export default {
-        data () {
-            return {
-                title:'活动',
-                isBack: false,
-                allowBack:false,
-                loading:{
-                    show:false,
-                    type:1,
-                    msg:'努力加载中...',
-                    mask:true,
-                    isAnimation:false,
-                },
-            }
-        },
-        components:{
-
-        },
-        methods:{
-			dblclick(){
-				return false;
-			},
-          onNetChange(){
-            var nt = plus.networkinfo.getCurrentType();
-	       switch(nt){
-	        　　　　case plus.networkinfo.CONNECTION_ETHERNET:
-	        　　　　case plus.networkinfo.CONNECTION_WIFI:
-	        　　　　　 mui.toast("当前网络为WiFi");
-	       　　　　　　break;
-	       　　　　 case plus.networkinfo.CONNECTION_CELL2G:
-	       　　　　 case plus.networkinfo.CONNECTION_CELL3G:
-	       　　　　 case plus.networkinfo.CONNECTION_CELL4G:
-	       　　　　　　mui.toast("当前网络非WiFi");
-	       　　　　　　break;
-	       　　　　 default:
-	       　　　　　　mui.toast("当前没有网络");
-	       　　　　　　break;
-	       　　	}
-          }
-        },
-        mounted(){
-            let self = this;
-            mui.plusReady(function(){
-                plus.navigator.setStatusBarBackground("#F52F6C");
-                let first = null;
-                plus.key.addEventListener('backbutton', function() {
-                   if (!first) {
-                       first = new Date().getTime();
-                       setTimeout(function() {
-                           first = null;
-                       }, 1000);
-                   } else {
-                       if (new Date().getTime() - first < 1000) {
-                           plus.runtime.quit();
-                       }
-                   }
-                }, false);
-                document.addEventListener("netchange",self.onNetChange,false);
-                if(plus.networkinfo.getCurrentType()==1){
-                  mui.toast( "没有网路链接");
-                  return;
-                }
-                if(plus.networkinfo.getCurrentType()!=2 || plus.networkinfo.getCurrentType()!=3){
-                  mui.toast( "当前网络为移动网络");
-                }
-            });
-        },
-        watch: {
-            '$route' (to, from) {
-            	
-            }
-        }
-    }
-</script>

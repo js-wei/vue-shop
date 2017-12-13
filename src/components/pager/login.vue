@@ -7,14 +7,14 @@
                 <input type="text" class="mui-input-clear phone" name="phone" placeholder="请输入手机">
             </div>
             <div class="mui-input-row">
-                <label>密码</label>
+                <label>密&nbsp;&nbsp;&nbsp;码</label>
                 <input type="password" class="mui-input-password password" name="password" placeholder="请输入密码">
             </div>
             <div class="mui-input-row del-line right">
                 <a href="">忘记密码?</a>
             </div>
             <div class="mui-button-row">
-                <button type="button" class="mui-btn mui-btn-block mui-btn-primary" @click="login()" >登陆账号</button>
+                <button type="button" class="mui-btn mui-btn-block mui-btn-login" @click="login" >登陆账号</button>
             </div>
             <div class="mui-input-row del-line">
                 <router-link to="/register">注册新号</router-link>
@@ -30,72 +30,7 @@
         </form>
     </div>
 </template>
-<style lang="scss" scoped>
-    @import "static/style/base";
-    form:after{
-        background-color: #fff;
-    }
-    .register{
-        padding-top:5rem;
-        text-align:center;
-        img{
-            width:4rem;
-            padding-bottom:2rem;
-        }
-        .mui-input-group{
-            width:80%;
-            margin:0 auto;
-            height:auto;
-            overflow:hidden;
-            padding-bottom:2rem;
-            &:before{
-                background-color: #fff;
-            }
-            .mui-input-row{
-                margin-top:.8rem;
-                position:relative;
-                .line{
-                    position:absolute;
-                    border-bottom: 0.1rem solid #e4e4e8;
-                    display:inline-block;
-                    width:34%;
-                    top:.6rem;
-                }
-                .line.line-left{
-                    left:0;
-                }
-                .line.line-right{
-                    right:0;
-                }
-                .title{
-                    vertical-align: middle;
-                    font-size:1rem;
-                    color: #b3b3b3;
-                }
 
-            }
-            .mui-button-row{
-                margin-bottom:2rem;
-            }
-            .mui-input-row.del-line{
-                a{
-                    color:nth($baseColor,5);
-                }
-                &:after{
-                    background-color: #fff;
-                }
-            }
-            .mui-input-row.del-line.right{
-                text-align:right;
-            }
-            .third{
-                img{
-                    height:6rem;
-                }
-            }
-        }
-    }
-</style>
 <script>
     export default {
         data(){
@@ -119,12 +54,10 @@
                     mui.toast('请输入密码');
                     return '';
                 }
-                this.$axios.post('/user/get').then(function (response) {
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                this.axios.post('/login',{phone:phone,password:password}).then(response=> {
+                    response = response.data;
+                   
+                }).catch(error=> console.log(error));
             }
         },
         mounted() {
@@ -136,3 +69,80 @@
         }
     }
 </script>
+<style lang="scss" scoped>
+    @import "static/style/base";
+    form:after{
+        background-color: #fff;
+    }
+    .register{
+        padding-top:5rem;
+        text-align:center;
+        img{
+            width:4rem;
+            padding-bottom:2rem;
+        }
+        .mui-input-group{
+            width:90%;
+            margin:0 auto;
+            height:auto;
+            overflow:hidden;
+            padding-bottom:2rem;
+            &:before{
+                background-color: #fff;
+            }
+            .mui-input-row{
+                margin-top:.8rem;
+                position:relative;
+                .line{
+                    position:absolute;
+                    border-bottom: 0.1rem solid #e4e4e8;
+                    display:inline-block;
+                    width:38%;
+                    top:.8rem;
+                    &.line-left{
+                        left:0;
+                    }
+                    &.line-right{
+                        right:0;
+                    }
+                }
+                .title{
+                    vertical-align: middle;
+                    font-size:1rem;
+                    color: #b3b3b3;
+                }
+                label{
+                    width:25%;
+                }
+                input{
+                    width:70%;
+                }
+            }
+            .mui-button-row{
+                margin-bottom:2rem;
+                margin-top:1rem;
+                button{
+                    background-color:nth($baseColor,3);
+                    color:nth($baseColor,1);
+                    border: 1px solid nth($baseColor,3);
+                }
+            }
+            .mui-input-row.del-line{
+                a{
+                    color:nth($baseColor,5);
+                }
+                &:after{
+                    background-color: #fff;
+                }
+            }
+            .mui-input-row.del-line.right{
+                text-align:right;
+            }
+            .third{
+                img{
+                    height:6rem;
+                }
+            }
+        }
+    }
+</style>
